@@ -1,85 +1,50 @@
 import {computed, Injectable, signal} from "@angular/core";
-import {
-    AcademicInfo,
-    AccessInfo,
-    INITIAL_USER_REGISTRATION_STATE, Otro, PersonalInfo, SecurityInfo,
-    UserRegistrationState
-} from "./user-registration.state";
+import {CareerCreateState, INITIAL_STATE, PrincipalData, SecondaryData, StateCareer} from "./user-registration.state";
 
 const FORM_STATE_KEY = 'formState';
 
 @Injectable({providedIn: 'root'})
-export class UserRegistrationStore {
-    readonly formState = signal<UserRegistrationState>(this.loadFromStorage());
+export class CareerCreateStore {
+    readonly formState = signal<CareerCreateState>(this.loadFromStorage());
     readonly formErrors = signal<Record<string, string[]>>({});
 
+    readonly stateCareer = computed(() => this.formState().stateCareer);
+    readonly principalData = computed(() => this.formState().principalData);
+    readonly secondaryData = computed(() => this.formState().secondaryData);
 
-    readonly access = computed(() => this.formState().access);
-    readonly academicInfo = computed(() => this.formState().academicInfo);
-    readonly personalInfo = computed(() => this.formState().personalInfo);
-    readonly securityInfo = computed(() => this.formState().securityInfo);
-    readonly otro = computed(() => this.formState().otro);
 
-    updateAccess(data: Partial<AccessInfo>) {
+    updateStateCareer(data: Partial<StateCareer>) {
         this.formState.update(state => ({
             ...state,
-            access: {
-                ...state.access,
+            stateCareer: {
+                ...state.stateCareer,
                 ...data
             }
         }));
     }
 
-    updateAcademicInfo(data: Partial<AcademicInfo>) {
+    updatePrincipalData(data: Partial<PrincipalData>) {
         this.formState.update(state => ({
             ...state,
-
-            academicInfo: {
-                ...state.academicInfo,
+            principalData: {
+                ...state.principalData,
                 ...data
             }
-
         }));
     }
 
-    updatePersonalInfo(data: Partial<PersonalInfo>) {
+    updateSecondaryData(data: Partial<SecondaryData>) {
         this.formState.update(state => ({
             ...state,
-
-            personalInfo: {
-                ...state.personalInfo,
+            secondaryData: {
+                ...state.secondaryData,
                 ...data
             }
-
         }));
     }
 
-    updateSecurityInfo(data: Partial<SecurityInfo>) {
-        this.formState.update(state => ({
-            ...state,
-
-            securityInfo: {
-                ...state.securityInfo,
-                ...data
-            }
-
-        }));
-    }
-
-    updateOtro(data: Partial<Otro>) {
-        this.formState.update(state => ({
-            ...state,
-
-            otro: {
-                ...state.otro,
-                ...data
-            }
-
-        }));
-    }
-
-    private loadFromStorage(): UserRegistrationState {
+    private loadFromStorage(): CareerCreateState {
         const stored = sessionStorage.getItem(FORM_STATE_KEY);
-        return stored ? JSON.parse(stored) : INITIAL_USER_REGISTRATION_STATE;
+        return stored ? JSON.parse(stored) : INITIAL_STATE;
     }
 }

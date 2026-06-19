@@ -1,69 +1,47 @@
-export interface UserRegistrationState {
-    access: AccessInfo;
-    personalInfo: PersonalInfo;
-    academicInfo: AcademicInfo;
-    securityInfo: SecurityInfo;
-    otro: Otro;
+export interface CareerCreateState {
+    stateCareer: StateCareer;
+    principalData: PrincipalData;
+    secondaryData: SecondaryData;
 }
 
-export interface AccessInfo {
-    roles: string[];
+export interface StateCareer {
+    state: boolean;
+    isVisible: boolean;
+    modality: any;
 }
 
-export interface AcademicInfo {
-    institutionId: string | null;
-    careerIds: string[];
-}
-
-export interface PersonalInfo {
-    schoolPeriod: ObjectI;
-    subject: ObjectI;
-    firstName: string;
-    lastName: string;
-    email: string;
-}
-
-export interface ObjectI {
-    id: string;
-}
-
-export interface SecurityInfo {
-    password: string;
-    mustChangePassword: boolean;
-    changePasswordEnabled: boolean;
-}
-
-export interface Otro {
+export interface PrincipalData {
+    code: string | null;
     name: string;
-    code: string;
+    degree: string;
+    acronym: string;
 }
 
-export const INITIAL_USER_REGISTRATION_STATE: UserRegistrationState = {
-    access: {
-        roles: []
+export interface SecondaryData {
+    code: string;
+    shortName: string;
+    logo: string;
+    resolutionNumber: string;
+}
+
+export const INITIAL_STATE: CareerCreateState = {
+    stateCareer: {
+        state: true,
+        isVisible: true,
+        modality: null,
     },
 
-    academicInfo: {
-        institutionId: null,
-        careerIds: []
-    },
-
-    personalInfo: {
-        documentType: null,
-        documentNumber: '',
-        firstName: '',
-        lastName: '',
-        email: ''
-    },
-
-    securityInfo: {
-        password: '',
-        mustChangePassword: true,
-        changePasswordEnabled: true
-    },
-
-    otro: {
+    principalData: {
+        code: '',
         name: '',
-        code: ''
-    }
+        degree: '',
+        acronym: ''
+    },
+
+    secondaryData: {
+        code: '',
+        shortName: '',
+        logo: '',
+        resolutionNumber: ''
+    },
 };
