@@ -1,13 +1,12 @@
 import {Component, computed, effect, inject, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
 
-import {FieldTree, form, FormField, required, SchemaPathTree, validate} from "@angular/forms/signals";
+import {FieldTree, form, FormField, SchemaPathTree, validate} from "@angular/forms/signals";
 import {SecondaryData} from "../../career-registration.state";
 import {InputText} from "primeng/inputtext";
 import {LabelDirective} from "@utils/directives/label.directive";
 import {ErrorMessageDirective} from "@utils/directives/error-message.directive";
 import {CareerRegistrationStore} from "../../career-registration.store";
 import {FormRegistryService} from "@utils/services/form-registry.service";
-import {JsonPipe} from "@angular/common";
 
 const FORM_STATE_KEY = 'secondaryData';
 
@@ -17,8 +16,7 @@ const FORM_STATE_KEY = 'secondaryData';
         InputText,
         LabelDirective,
         FormField,
-        ErrorMessageDirective,
-        JsonPipe
+        ErrorMessageDirective
     ],
     templateUrl: './secondary-data.component.html'
 })
@@ -26,7 +24,7 @@ export class SecondaryDataComponent implements OnInit, OnDestroy {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly careerCreateStore = inject(CareerRegistrationStore);
 
-    readonly isCodeRequired = computed(() =>
+    protected readonly isCodeRequired = computed(() =>
         this.careerCreateStore.principalData().code !== '1'
     );
 

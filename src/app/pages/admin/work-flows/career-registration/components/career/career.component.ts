@@ -11,8 +11,6 @@ import {
     PrincipalDataComponent
 } from "@modules/admin/work-flows/career-registration/components/principla-data/principal-data.component";
 import {FormRegistryService} from "@utils/services/form-registry.service";
-import {InputText} from "primeng/inputtext";
-import {LabelDirective} from "@utils/directives/label.directive";
 import {FontAwesome} from "@utils/icons/font-awesome";
 
 
@@ -22,9 +20,7 @@ import {FontAwesome} from "@utils/icons/font-awesome";
         PrincipalDataComponent,
         Button,
         JsonPipe,
-        SecondaryDataComponent,
-        InputText,
-        LabelDirective
+        SecondaryDataComponent
     ],
     templateUrl: './career.component.html'
 })
