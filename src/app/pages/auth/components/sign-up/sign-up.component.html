@@ -4,7 +4,7 @@
         <div class="custom-form-field md:col-span-12">
             <p-button
                 pTooltip="Regresar"
-                [icon]="FontAwesome.CHEVRON_LEFT_SOLID"
+                [icon]="CustomIcons.CHEVRON_LEFT_SOLID"
                 severity="warn"
                 [raised]="true"
                 [text]="true"
@@ -93,7 +93,7 @@
                 <p-button
                     severity="info"
                     styleClass="w-full"
-                    [icon]="FontAwesome.PAPER_PLANE_SOLID"
+                    [icon]="CustomIcons.PAPER_PLANE_SOLID"
                     [label]="transactionalCodeControl.enabled?'Reenviar código':'Solicitar código'"
                     [outlined]="true"
                     [raised]="true"
@@ -236,7 +236,7 @@
                     styleClass="w-full"
                     [outlined]="true"
                     [raised]="true"
-                    [icon]="FontAwesome.USER_PLUS_SOLID"
+                    [icon]="CustomIcons.USER_PLUS_SOLID"
                     (onClick)="onSubmit()" />
             </div>
         }

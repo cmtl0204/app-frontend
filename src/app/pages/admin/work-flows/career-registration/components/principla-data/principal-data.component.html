@@ -15,7 +15,7 @@
                 label="Code"
                 [field]="codeField">
             </label>
-
+            {{ codeField().value() |json }}
             <input pInputText id="code" [formField]="codeField">
 
             <small [appErrorMessage]="$any(codeField)"></small>

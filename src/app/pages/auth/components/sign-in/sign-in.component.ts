@@ -25,7 +25,7 @@ import { ErrorMessageDirective } from '@utils/directives/error-message.directive
 import { MY_ROUTES } from '@routes';
 import { RoleInterface } from '@modules/auth/interfaces';
 import { CoreService } from '@utils/services';
-import { FontAwesome } from '@modules/public/icons/font-awesome';
+import { CustomIcons } from '@modules/public/icons/custom-icons';
 import { InputGroup } from 'primeng/inputgroup';
 import { InputGroupAddon } from 'primeng/inputgroupaddon';
 import { invalidEmailValidator } from '@utils/form-validators/custom-validator';
@@ -46,7 +46,7 @@ export default class SignInComponent {
     protected isVisibleRoles = false;
     protected readonly MY_ROUTES = MY_ROUTES;
     protected readonly Validators = Validators;
-    protected readonly FontAwesome = FontAwesome;
+    protected readonly CustomIcons = CustomIcons;
     protected requestEmailVerificationModal: boolean = false;
     private readonly formBuilder = inject(FormBuilder);
     private readonly customMessageService = inject(CustomMessageService);

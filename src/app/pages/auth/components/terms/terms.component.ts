@@ -9,7 +9,7 @@ import { RippleModule } from 'primeng/ripple';
 import { DatePickerModule } from 'primeng/datepicker';
 import { MY_ROUTES } from '@routes';
 import { AuthHttpService } from '@/pages/auth/auth-http.service';
-import { FontAwesome } from '@modules/public/icons/font-awesome';
+import { CustomIcons } from '@modules/public/icons/custom-icons';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ConfirmationService } from 'primeng/api';
 import { environment } from '@env/environment';
@@ -21,7 +21,7 @@ import { environment } from '@env/environment';
     imports: [PdfViewerModule, ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, ReactiveFormsModule, DatePickerModule]
 })
 export default class TermsComponent implements OnInit {
-    protected readonly FontAwesome = FontAwesome;
+    protected readonly CustomIcons = CustomIcons;
     protected readonly MY_ROUTES = MY_ROUTES;
 
     private readonly router = inject(Router);
@@ -40,7 +40,7 @@ export default class TermsComponent implements OnInit {
         this.confirmationService.confirm({
             message: '¿Está seguro de aceptar?',
             header: 'Aceptar',
-            icon: FontAwesome.CHECK_DOUBLE_SOLID,
+            icon: CustomIcons.CHECK_DOUBLE_SOLID,
             rejectButtonStyleClass: 'p-button-text',
             acceptButtonStyleClass: 'p-button-text p-button-raised',
             rejectButtonProps: {

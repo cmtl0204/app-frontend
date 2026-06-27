@@ -19,7 +19,7 @@ import { Tooltip } from 'primeng/tooltip';
 import { Dialog } from 'primeng/dialog';
 import EmailResetComponent from '@/pages/auth/components/email-reset/email-reset.component';
 import { CatalogueInterface } from '@utils/interfaces';
-import { FontAwesome } from '@modules/public/icons/font-awesome';
+import { CustomIcons } from '@modules/public/icons/custom-icons';
 import { TransactionalCodeComponent } from '@utils/components/transactional-code/transactional-code.component';
 
 @Component({
@@ -53,7 +53,7 @@ export default class PasswordResetComponent {
     protected transactionalCodeControl = new FormControl({ value: '', disabled: true });
     protected securityQuestionsModal = false;
     protected allSecurityQuestions: CatalogueInterface[] = [];
-    protected readonly FontAwesome = FontAwesome;
+    protected readonly CustomIcons = CustomIcons;
     private readonly formBuilder = inject(FormBuilder);
     private readonly customMessageService = inject(CustomMessageService);
     private readonly authHttpService = inject(AuthHttpService);

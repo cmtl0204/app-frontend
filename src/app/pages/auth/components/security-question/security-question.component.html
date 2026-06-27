@@ -4,7 +4,7 @@
             @if (this.authService.auth.securityQuestionAcceptedAt) {
                 <p-button
                     pTooltip="Regresar"
-                    [icon]="FontAwesome.CHEVRON_LEFT_SOLID"
+                    [icon]="CustomIcons.CHEVRON_LEFT_SOLID"
                     severity="warn"
                     [raised]="true"
                     [text]="true"
@@ -55,12 +55,12 @@
                         severity="info"
                         styleClass="w-full"
                         [text]="true"
-                        [icon]="FontAwesome.ARROWS_ROTATE_SOLID"
+                        [icon]="CustomIcons.ARROWS_ROTATE_SOLID"
                         (onClick)="loadSecurityQuestions()" />
                 </div>
 
                 <div class="custom-form-field md:col-span-6">
-                    <p-button type="submit" label="Guardar y Continuar" [icon]="FontAwesome.CHEVRON_RIGHT_SOLID" />
+                    <p-button type="submit" label="Guardar y Continuar" [icon]="CustomIcons.CHEVRON_RIGHT_SOLID" />
                 </div>
 
             </form>
@@ -100,7 +100,7 @@
                     label="Reenviar código"
                     severity="info"
                     styleClass="w-full"
-                    [icon]="FontAwesome.PAPER_PLANE_SOLID"
+                    [icon]="CustomIcons.PAPER_PLANE_SOLID"
                     [raised]="true"
                     [text]="true"
                     (onClick)="requestTransactionalCode()" />
@@ -111,7 +111,7 @@
                     label="Regresar"
                     severity="secondary"
                     styleClass="w-full"
-                    [icon]="FontAwesome.CHEVRON_LEFT_SOLID"
+                    [icon]="CustomIcons.CHEVRON_LEFT_SOLID"
                     [text]="true"
                     (onClick)="back()" />
             </div>

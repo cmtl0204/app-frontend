@@ -11,7 +11,7 @@ import { InputText } from 'primeng/inputtext';
 // Custom / Local
 import { environment } from '@env/environment';
 import { MY_ROUTES } from '@routes';
-import { FontAwesome } from '@modules/public/icons/font-awesome';
+import { CustomIcons } from '@modules/public/icons/custom-icons';
 import { AuthHttpService } from '@/pages/auth/auth-http.service';
 import { CustomMessageService } from '@utils/services';
 import { ErrorMessageDirective } from '@utils/directives/error-message.directive';
@@ -61,7 +61,7 @@ export default class EmailVerificationComponent implements OnInit {
     // Constantes expuestas al template
     protected readonly environment = environment;
     protected readonly MY_ROUTES = MY_ROUTES;
-    protected readonly FontAwesome = FontAwesome;
+    protected readonly CustomIcons = CustomIcons;
     // Estado Reactivo (Signals)
     protected uiState = signal<UIState>(this.getConfigForStatus('LOADING'));
     protected counter = signal<number>(5);
@@ -150,42 +150,42 @@ export default class EmailVerificationComponent implements OnInit {
     private getConfigForStatus(status: VerificationStatus): UIState {
         const config: Record<VerificationStatus, UIState> = {
             LOADING: {
-                icon: FontAwesome.SPINNER_SOLID,
+                icon: CustomIcons.SPINNER_SOLID,
                 title: 'Verificando...',
                 message: 'Estamos verificando tu cuenta',
                 color: 'var(--p-sky-600)',
                 iconClass: 'icon-color-info'
             },
             SUCCESS: {
-                icon: FontAwesome.ENVELOPE_CIRCLE_CHECK_SOLID,
+                icon: CustomIcons.ENVELOPE_CIRCLE_CHECK_SOLID,
                 title: '¡Verificación Exitosa!',
                 message: 'Ya puedes iniciar sesión',
                 color: 'var(--p-green-600)',
                 iconClass: 'icon-color-success'
             },
             INVALID: {
-                icon: FontAwesome.LINK_SLASH_SOLID,
+                icon: CustomIcons.LINK_SLASH_SOLID,
                 title: 'Enlace no válido',
                 message: 'El enlace de verificación no es válido o ya no está disponible',
                 color: 'var(--p-red-600)',
                 iconClass: 'icon-color-danger'
             },
             USED: {
-                icon: FontAwesome.USER_CHECK_SOLID,
+                icon: CustomIcons.USER_CHECK_SOLID,
                 title: 'Cuenta ya activa',
                 message: 'Este enlace ya se utilizó. Tu cuenta está activa.',
                 color: 'var(--p-purple-600)',
                 iconClass: 'icon-color-help'
             },
             EXPIRED: {
-                icon: FontAwesome.CALENDAR_XMARK_REGULAR,
+                icon: CustomIcons.CALENDAR_XMARK_REGULAR,
                 title: 'El enlace ha caducado',
                 message: 'Por seguridad, los enlaces duran 24 horas. Necesitas uno nuevo.',
                 color: 'var(--p-orange-600)',
                 iconClass: 'icon-color-warn'
             },
             ACCOUNT_VERIFIED: {
-                icon: FontAwesome.ENVELOPE_CIRCLE_CHECK_SOLID,
+                icon: CustomIcons.ENVELOPE_CIRCLE_CHECK_SOLID,
                 title: 'Cuenta ya activa',
                 message: 'Tu cuenta ya fue verificada. Puedes iniciar sesión o continuar con el proceso.',
                 color: 'var(--p-sky-600)',

@@ -18,7 +18,7 @@ import { MY_ROUTES } from '@routes';
 import { CatalogueService } from '@utils/services/catalogue.service';
 import { CatalogueTypeEnum, CoreEnum } from '@utils/enums';
 import { Tooltip } from 'primeng/tooltip';
-import { FontAwesome } from '@modules/public/icons/font-awesome';
+import { CustomIcons } from '@modules/public/icons/custom-icons';
 import { CatalogueHttpService, CoreService, CoreSessionStorageService } from '@utils/services';
 import { TransactionalCodeComponent } from '@utils/components/transactional-code/transactional-code.component';
 import { CatalogueInterface } from '@utils/interfaces';
@@ -55,7 +55,7 @@ export default class SignUpComponent implements OnInit {
     protected form!: FormGroup;
     protected transactionalCodeControl = new FormControl({ value: '', disabled: true });
     protected readonly MY_ROUTES = MY_ROUTES;
-    protected readonly FontAwesome = FontAwesome;
+    protected readonly CustomIcons = CustomIcons;
     protected allSecurityQuestions: CatalogueInterface[] = [];
     private readonly formBuilder = inject(FormBuilder);
     private readonly customMessageService = inject(CustomMessageService);

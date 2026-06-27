@@ -10,11 +10,15 @@
         <!-- code -->
         <!--        @if (isCodeRequired()) {-->
         <div class="custom-form-field md:col-span-6">
-            <label
-                appLabel
-                for="code"
-                label="Código"
-                [field]="codeField">
+<!--            <label-->
+<!--                appLabel-->
+<!--                for="code"-->
+<!--                label="Código"-->
+<!--                [field]="codeField">-->
+<!--            </label>-->
+
+            <label [requiredMarker]="$any(codeField)" for="code">
+                Email
             </label>
 
             <input pInputText id="code" [formField]="codeField">
@@ -22,8 +26,9 @@
             <small [appErrorMessage]="$any(codeField)"></small>
         </div>
         <!--        }-->
-        <!-- name -->
 
+        <!-- shortName -->
+        <!--        @if (isShortNameRequired()) {-->
         <div class="custom-form-field md:col-span-6">
             <label
                 appLabel
@@ -33,6 +38,20 @@
             </label>
 
             <input pInputText id="shortName" [formField]="shortNameField">
+
+            <small [appErrorMessage]="$any(shortNameField)"></small>
+        </div>
+        <!--        }-->
+
+        <div class="custom-form-field md:col-span-6">
+            <label
+                appLabel
+                for="shortName"
+                label="Nombre corto de la carrera"
+                [field]="shortNameField">
+            </label>
+
+            <p-select [options]="institutions" optionLabel="name" [formField]="institutionField"></p-select>
 
             <small [appErrorMessage]="$any(shortNameField)"></small>
         </div>

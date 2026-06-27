@@ -18,7 +18,7 @@
 
             <p-inputgroup>
                 <p-inputgroup-addon>
-                    <i [class]="FontAwesome.ENVELOPE_SOLID"></i>
+                    <i [class]="CustomIcons.ENVELOPE_SOLID"></i>
                 </p-inputgroup-addon>
                 <input
                     pInputText
@@ -44,7 +44,7 @@
             </label>
             <p-inputgroup>
                 <p-inputgroup-addon>
-                    <i [class]="FontAwesome.KEY_SOLID"></i>
+                    <i [class]="CustomIcons.KEY_SOLID"></i>
                 </p-inputgroup-addon>
                 <p-password
                     id="password"
@@ -69,7 +69,7 @@
                 label="Ingresar"
                 styleClass="w-full"
                 [raised]="true"
-                [icon]="FontAwesome.ARROW_RIGHT_TO_BRACKET_SOLID"
+                [icon]="CustomIcons.ARROW_RIGHT_TO_BRACKET_SOLID"
                 [loading]="coreService.loading()">
             </p-button>
         </div>
@@ -78,7 +78,7 @@
             <p-button
                 label="Crear Cuenta"
                 styleClass="w-full"
-                [icon]="FontAwesome.USER_PLUS_SOLID"
+                [icon]="CustomIcons.USER_PLUS_SOLID"
                 severity="success"
                 [outlined]="true"
                 raised="true"
@@ -89,7 +89,7 @@
             <p-button
                 label="Recuperar Cuenta"
                 styleClass="w-full"
-                [icon]="FontAwesome.UNLOCK_KEYHOLE_SOLID"
+                [icon]="CustomIcons.UNLOCK_KEYHOLE_SOLID"
                 severity="info"
                 [outlined]="true"
                 [raised]="true"
@@ -163,7 +163,7 @@
                 <p-button
                     label="Solicitar nuevo enlace"
                     styleClass="w-full"
-                    [icon]="FontAwesome.ENVELOPE_OPEN_SOLID"
+                    [icon]="CustomIcons.ENVELOPE_OPEN_SOLID"
                     [raised]="true"
                     (onClick)="resendEmailVerification()" />
             </div>

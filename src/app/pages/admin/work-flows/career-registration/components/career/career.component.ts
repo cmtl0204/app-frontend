@@ -11,8 +11,7 @@ import {
     PrincipalDataComponent
 } from "@modules/admin/work-flows/career-registration/components/principla-data/principal-data.component";
 import {FormRegistryService} from "@utils/services/form-registry.service";
-import {FontAwesome} from "@utils/icons/font-awesome";
-
+import {CustomIcons} from "@utils/icons/custom-icons";
 
 @Component({
     selector: 'app-career',
@@ -29,6 +28,7 @@ export class CareerComponent {
     private readonly customMessageService = inject(CustomMessageService);
     protected readonly careerCreateStore = inject(CareerRegistrationStore);
     protected readonly careerRegistrationService = inject(CareerRegistrationService);
+    protected readonly CustomIcons = CustomIcons;
 
     async onSubmit() {
         if (this.formRegistryService.hasErrors()) {
@@ -48,6 +48,4 @@ export class CareerComponent {
             }
         });
     }
-
-    protected readonly FontAwesome = FontAwesome;
 }

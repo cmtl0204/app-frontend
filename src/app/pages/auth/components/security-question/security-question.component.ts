@@ -28,7 +28,7 @@ import { CatalogueInterface } from '@utils/interfaces';
 import { AuthService } from '@/pages/auth/auth.service';
 import { Dialog } from 'primeng/dialog';
 import { Location } from '@angular/common';
-import { FontAwesome } from '@modules/public/icons/font-awesome';
+import { CustomIcons } from '@modules/public/icons/custom-icons';
 import { TransactionalCodeComponent } from '@utils/components/transactional-code/transactional-code.component';
 import { Tooltip } from 'primeng/tooltip';
 
@@ -39,7 +39,7 @@ import { Tooltip } from 'primeng/tooltip';
     imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, ReactiveFormsModule, DatePickerModule, LabelDirective, ErrorMessageDirective, Dialog, TransactionalCodeComponent, Tooltip]
 })
 export default class SecurityQuestionComponent implements OnInit {
-    protected readonly FontAwesome = FontAwesome;
+    protected readonly CustomIcons = CustomIcons;
     protected readonly MY_ROUTES = MY_ROUTES;
     protected readonly environment = environment;
     protected readonly coreService = inject(CoreService);

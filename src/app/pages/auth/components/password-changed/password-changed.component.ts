@@ -26,7 +26,7 @@ import { AuthHttpService } from '@/pages/auth/auth-http.service';
 import { CatalogueInterface } from '@utils/interfaces';
 import { AuthService } from '@/pages/auth/auth.service';
 import { Location } from '@angular/common';
-import { FontAwesome } from '@modules/public/icons/font-awesome';
+import { CustomIcons } from '@modules/public/icons/custom-icons';
 import { matchPasswords, passwordPolicesValidator } from '@utils/form-validators/custom-validator';
 import { Divider } from 'primeng/divider';
 
@@ -37,7 +37,7 @@ import { Divider } from 'primeng/divider';
     imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, ReactiveFormsModule, DatePickerModule, LabelDirective, ErrorMessageDirective, Divider]
 })
 export default class PasswordChangedComponent implements OnInit {
-    protected readonly FontAwesome = FontAwesome;
+    protected readonly CustomIcons = CustomIcons;
     protected readonly MY_ROUTES = MY_ROUTES;
     protected readonly environment = environment;
     protected readonly coreService = inject(CoreService);

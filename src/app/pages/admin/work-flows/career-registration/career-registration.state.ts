@@ -15,6 +15,20 @@ export interface SecondaryData {
     shortName: string;
     logo: string;
     resolutionNumber: string;
+    institution: InstitutionInterface | null;
+}
+
+export interface CareerInterface {
+    id: string;
+    code: string;
+    shortName: string;
+    logo: string;
+    resolutionNumber: string;
+}
+
+interface InstitutionInterface {
+    code: string;
+    name: string;
 }
 
 export const INITIAL_STATE: CareerRegistrationState = {
@@ -29,6 +43,7 @@ export const INITIAL_STATE: CareerRegistrationState = {
         code: '',
         shortName: '',
         logo: '',
-        resolutionNumber: ''
+        resolutionNumber: '',
+        institution: null
     },
 };

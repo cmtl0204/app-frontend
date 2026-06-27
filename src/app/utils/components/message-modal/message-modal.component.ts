@@ -2,7 +2,7 @@ import {Component, computed, inject} from '@angular/core';
 import {CustomMessageService} from '@utils/services/custom-message.service';
 import {Dialog} from 'primeng/dialog';
 import {Button} from 'primeng/button';
-import {FontAwesome} from "@utils/icons/font-awesome";
+import {CustomIcons} from "@utils/icons/custom-icons";
 import {Divider} from "primeng/divider";
 
 
@@ -16,7 +16,7 @@ export class MessageModalComponent {
     protected readonly customMessageService = inject(CustomMessageService);
     protected readonly Array = Array;
 
-    protected readonly FontAwesome = FontAwesome;
+    protected readonly CustomIcons = CustomIcons;
 
     groupedMessages = computed(() => {
         const messages = this.customMessageService.modalMessage;

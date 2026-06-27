@@ -1,4 +1,4 @@
-export class FontAwesome {
+export class CustomIcons {
     public static readonly ICON_0_SOLID = 'fas fa-0';
     public static readonly ICON_1_SOLID = 'fas fa-1';
     public static readonly ICON_2_SOLID = 'fas fa-2';

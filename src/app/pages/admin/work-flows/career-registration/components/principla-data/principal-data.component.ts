@@ -7,6 +7,7 @@ import {LabelDirective} from "@utils/directives/label.directive";
 import {ErrorMessageDirective} from "@utils/directives/error-message.directive";
 import {CareerRegistrationStore} from "../..//career-registration.store";
 import {FormRegistryService} from "@utils/services/form-registry.service";
+import {JsonPipe} from "@angular/common";
 
 const FORM_STATE_KEY = 'principalData';
 
@@ -16,7 +17,8 @@ const FORM_STATE_KEY = 'principalData';
         InputText,
         FormField,
         LabelDirective,
-        ErrorMessageDirective
+        ErrorMessageDirective,
+        JsonPipe
     ],
     templateUrl: './principal-data.component.html'
 })
@@ -48,7 +50,7 @@ export class PrincipalDataComponent implements OnInit, OnDestroy {
     }
 
     get buildForm() {
-        return form(this.form$, (schema) => {
+        return form<PrincipalData>(this.form$, (schema) => {
             this.validateForm(schema)
         });
     }

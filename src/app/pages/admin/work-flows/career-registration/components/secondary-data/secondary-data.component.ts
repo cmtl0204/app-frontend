@@ -7,6 +7,13 @@ import {LabelDirective} from "@utils/directives/label.directive";
 import {ErrorMessageDirective} from "@utils/directives/error-message.directive";
 import {CareerRegistrationStore} from "../../career-registration.store";
 import {FormRegistryService} from "@utils/services/form-registry.service";
+import {
+    customValidation,
+} from "@modules/admin/work-flows/career-registration/components/secondary-data/secondary-data.validation";
+import {
+    RequiredMarkerDirective
+} from "@modules/admin/work-flows/career-registration/components/secondary-data/required-marker.directive";
+import {Select} from "primeng/select";
 
 const FORM_STATE_KEY = 'secondaryData';
 
@@ -16,7 +23,9 @@ const FORM_STATE_KEY = 'secondaryData';
         InputText,
         LabelDirective,
         FormField,
-        ErrorMessageDirective
+        ErrorMessageDirective,
+        RequiredMarkerDirective,
+        Select
     ],
     templateUrl: './secondary-data.component.html'
 })
@@ -24,9 +33,7 @@ export class SecondaryDataComponent implements OnInit, OnDestroy {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly careerCreateStore = inject(CareerRegistrationStore);
 
-    protected readonly isShortNameRequired = computed(() =>
-        this.codeField().value() === '1'
-    );
+    protected institutions = [{code: '1', name: 'Yavirac'}];
 
     protected readonly form$: WritableSignal<SecondaryData> = signal(this.careerCreateStore.secondaryData());
 
@@ -52,66 +59,13 @@ export class SecondaryDataComponent implements OnInit, OnDestroy {
     }
 
     get buildForm() {
-        return form(this.form$, (schema) => {
+        return form<SecondaryData>(this.form$, (schema) => {
             this.validateForm(schema)
         });
     }
 
     private validateForm(schema: SchemaPathTree<SecondaryData>): void {
-        // this.codeRules(schema);
-        this.shortNameRules(schema);
-        required(schema.code, {message: 'El code es requerido'});
-    }
-
-    // private codeRules(schema: SchemaPathTree<SecondaryData>) {
-    //     return validate(schema.code, (ctx) => {
-    //         if (!this.isCodeRequired()) return null;
-    //
-    //         if (!ctx.value()) {
-    //             return {
-    //                 kind: 'required',
-    //                 message: 'Código requerido'
-    //             };
-    //         }
-    //
-    //         return null;
-    //     });
-    // }
-
-    // private shortNameRules(schema: SchemaPathTree<SecondaryData>) {
-    //     return validate(schema.shortName, (ctx) => {
-    //
-    //         const code = this.codeField().value();
-    //
-    //         if (code !== '10') return null;
-    //
-    //
-    //         const value = ctx.value() ?? '';
-    //
-    //         if (value.length < 2) {
-    //             return {
-    //                 kind: 'minLength',
-    //                 message: 'Debe tener al menos 2 caracteres'
-    //             };
-    //         }
-    //
-    //         return null;
-    //     });
-    // }
-
-    private shortNameRules(schema: SchemaPathTree<SecondaryData>) {
-        return validate(schema.shortName, (ctx) => {
-            if (!this.isShortNameRequired()) return null;
-
-            if (!ctx.value()) {
-                return {
-                    kind: 'required',
-                    message: 'Shortname es requerido'
-                };
-            }
-
-            return null;
-        });
+        customValidation(schema)
     }
 
     get codeField() {
@@ -128,5 +82,9 @@ export class SecondaryDataComponent implements OnInit, OnDestroy {
 
     get resolutionNumberField() {
         return this.formData.resolutionNumber;
+    }
+
+    get institutionField() {
+        return this.formData.institution;
     }
 }

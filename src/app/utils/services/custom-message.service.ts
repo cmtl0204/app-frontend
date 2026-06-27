@@ -1,6 +1,6 @@
 import {inject, Injectable, signal} from '@angular/core';
 import {MessageService} from 'primeng/api';
-import {FontAwesome} from "@utils/icons/font-awesome";
+import {CustomIcons} from "@utils/icons/custom-icons";
 
 
 type Severity =
@@ -146,7 +146,7 @@ export class CustomMessageService {
 
         this._isModalVisible.set(true);
         this._modalAcceptSeverity = 'info';
-        this._modalIcon = FontAwesome.CIRCLE_XMARK_REGULAR;
+        this._modalIcon = CustomIcons.CIRCLE_XMARK_REGULAR;
         this._modalIconColor = 'red';
         this._modalTitle = 'Falta completar o existen errores en los siguientes campos';
         this._modalMessage = message;
@@ -155,7 +155,7 @@ export class CustomMessageService {
     showModalInfo({summary, detail}: { summary: string; detail: string }): void {
         this._isModalVisible.set(true);
         this._modalAcceptSeverity = 'info';
-        this._modalTitleIcon = FontAwesome.CIRCLE_INFO_SOLID;
+        this._modalTitleIcon = CustomIcons.CIRCLE_INFO_SOLID;
         this._modalIconColor = 'var(--primary-color)';
         this._modalTitle = summary;
         this._modalMessage = detail;
@@ -164,7 +164,7 @@ export class CustomMessageService {
     showModalError({summary, detail}: { summary: string; detail: string }): void {
         this._isModalVisible.set(true);
         this._modalAcceptSeverity = 'danger';
-        this._modalTitleIcon = FontAwesome.CIRCLE_XMARK_REGULAR;
+        this._modalTitleIcon = CustomIcons.CIRCLE_XMARK_REGULAR;
         this._modalIconColor = 'var(--p-red-500)';
         this._modalTitle = summary;
         this._modalMessage = detail;
@@ -173,7 +173,7 @@ export class CustomMessageService {
     showModalWarn({summary, detail}: { summary: string; detail: string }): void {
         this._isModalVisible.set(true);
         this._modalAcceptSeverity = 'warn';
-        this._modalTitleIcon = FontAwesome.CIRCLE_XMARK_REGULAR;
+        this._modalTitleIcon = CustomIcons.CIRCLE_XMARK_REGULAR;
         this._modalIconColor = 'var(--primary-color)';
         this._modalTitle = summary;
         this._modalMessage = detail;

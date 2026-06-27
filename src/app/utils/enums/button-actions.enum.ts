@@ -97,7 +97,7 @@ export enum IconButtonActionEnum {
   UPLOAD = 'pi pi-upload',
   EDIT = 'pi pi-pencil',
   COMPLETE = 'pi pi-pencil',
-  CANCEL = 'FontAwesome.XMARK_SOLID',
+  CANCEL = 'CustomIcons.XMARK_SOLID',
   RETURN = 'pi pi-arrow-left',
   DOWNLOAD = 'pi pi-download',
   DOWNLOADS = 'pi pi-download',

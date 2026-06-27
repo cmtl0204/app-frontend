@@ -24,7 +24,7 @@ import { ErrorMessageDirective } from '@utils/directives/error-message.directive
 import { AuthHttpService } from '@/pages/auth/auth-http.service';
 import { AuthService } from '@/pages/auth/auth.service';
 import { invalidEmailValidator } from '@utils/form-validators/custom-validator';
-import { FontAwesome } from '@modules/public/icons/font-awesome';
+import { CustomIcons } from '@modules/public/icons/custom-icons';
 
 @Component({
     selector: 'app-email-reset',
@@ -41,7 +41,7 @@ export default class EmailResetComponent implements OnInit {
     protected readonly coreService = inject(CoreService);
 
     protected form!: FormGroup;
-    protected readonly FontAwesome = FontAwesome;
+    protected readonly CustomIcons = CustomIcons;
     private readonly formBuilder = inject(FormBuilder);
     private readonly customMessageService = inject(CustomMessageService);
     private readonly router = inject(Router);

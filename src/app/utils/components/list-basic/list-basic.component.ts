@@ -8,7 +8,7 @@ import { Tooltip } from 'primeng/tooltip';
 import { CoreService } from '@utils/services';
 import { ColInterface } from '@utils/interfaces';
 import { DatePipe } from '@angular/common';
-import {FontAwesome} from "@utils/icons/font-awesome";
+import {CustomIcons} from "@utils/icons/custom-icons";
 
 
 @Component({
@@ -58,5 +58,5 @@ export class ListBasicComponent implements OnInit {
         this.dt.filterGlobal(value, 'contains');
     }
 
-    protected readonly FontAwesome = FontAwesome;
+    protected readonly CustomIcons = CustomIcons;
 }

@@ -51,7 +51,7 @@
                                     label="Solicitar nuevo enlace"
                                     styleClass="w-full"
                                     severity="warn"
-                                    [icon]="FontAwesome.ENVELOPE_SOLID"
+                                    [icon]="CustomIcons.ENVELOPE_SOLID"
                                     [raised]="true"
                                     (onClick)="requestEmailVerificationModal.set(true)" />
                             }
@@ -106,7 +106,7 @@
                     type="submit"
                     styleClass="w-full"
                     label="Solicitar nuevo enlace"
-                    [icon]="FontAwesome.ENVELOPE_OPEN_SOLID"
+                    [icon]="CustomIcons.ENVELOPE_OPEN_SOLID"
                     [raised]="true"
                     [disabled]="usernameControl.invalid" />
             </div>
