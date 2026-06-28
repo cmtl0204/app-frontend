@@ -11,6 +11,8 @@ import {TableModule} from "primeng/table";
 import {CareerInterface} from "@modules/admin/work-flows/career-registration/career-registration.state";
 import {InputText} from "primeng/inputtext";
 import {InputGroup} from "primeng/inputgroup";
+import {Paginator, PaginatorState} from "primeng/paginator";
+import {INITIAL_PAGINATION, PaginationInterface} from "@utils/interfaces";
 
 @Component({
     selector: 'app-career-list',
@@ -18,7 +20,8 @@ import {InputGroup} from "primeng/inputgroup";
         Button,
         TableModule,
         InputText,
-        InputGroup
+        InputGroup,
+        Paginator
     ],
     templateUrl: './career-list.component.html'
 })
@@ -31,6 +34,7 @@ export class CareerListComponent implements OnInit {
 
     protected items = signal<CareerInterface[]>([]);
     protected search = signal('');
+    protected pagination = signal<PaginationInterface>(INITIAL_PAGINATION);
 
     ngOnInit(): void {
         this.loadItems();
@@ -128,5 +132,13 @@ export class CareerListComponent implements OnInit {
             next: (response) => {
             }
         });
+    }
+
+    findCareers(page = 1, search = null) {
+
+    }
+
+    onPageChange(paginatorState: PaginatorState) {
+        if (paginatorState?.page || paginatorState.page === 0) this.findCareers(paginatorState.page + 1);
     }
 }

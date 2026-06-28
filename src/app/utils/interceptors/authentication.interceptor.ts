@@ -4,13 +4,13 @@ import { switchMap, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-import { CoreService } from '@utils/services/core.service';
+import { AppService } from '@utils/services/app.service';
 import { AuthService } from '@modules/auth/auth.service';
 import { AuthHttpService } from '@/pages/auth/auth-http.service';
 import { MY_ROUTES } from '@routes';
 
 export const authenticationInterceptor: HttpInterceptorFn = (req, next) => {
-    const coreService = inject(CoreService);
+    const coreService = inject(AppService);
     const authService = inject(AuthService);
     const authHttpService = inject(AuthHttpService);
     const router = inject(Router);

@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { Drawer } from 'primeng/drawer';
 import { PanelMenu } from 'primeng/panelmenu';
 import { environment } from '@env/environment';
-import { CustomIcons } from '@modules/public/icons/custom-icons';
+import {CustomIcons} from "@utils/icons/custom-icons";
 import { Divider } from 'primeng/divider';
 
 @Component({

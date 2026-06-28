@@ -8,11 +8,11 @@ import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 import { DatePickerModule } from 'primeng/datepicker';
 import { MY_ROUTES } from '@routes';
-import { AuthHttpService } from '@/pages/auth/auth-http.service';
-import { CustomIcons } from '@modules/public/icons/custom-icons';
+import {CustomIcons} from "@utils/icons/custom-icons";
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { ConfirmationService } from 'primeng/api';
 import { environment } from '@env/environment';
+import {AuthHttpService} from "@modules/auth/auth-http.service";
 
 @Component({
     selector: 'app-terms',

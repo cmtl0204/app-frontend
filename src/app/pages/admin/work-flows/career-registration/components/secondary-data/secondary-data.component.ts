@@ -1,6 +1,6 @@
-import {Component, computed, effect, inject, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
+import {Component, effect, inject, OnDestroy, OnInit, signal, WritableSignal} from '@angular/core';
 
-import {FieldTree, form, FormField, required, SchemaPathTree, validate} from "@angular/forms/signals";
+import {FieldTree, form, FormField, SchemaPathTree} from "@angular/forms/signals";
 import {SecondaryData} from "../../career-registration.state";
 import {InputText} from "primeng/inputtext";
 import {LabelDirective} from "@utils/directives/label.directive";
@@ -13,7 +13,6 @@ import {
 import {
     RequiredMarkerDirective
 } from "@modules/admin/work-flows/career-registration/components/secondary-data/required-marker.directive";
-import {Select} from "primeng/select";
 
 const FORM_STATE_KEY = 'secondaryData';
 
@@ -24,19 +23,14 @@ const FORM_STATE_KEY = 'secondaryData';
         LabelDirective,
         FormField,
         ErrorMessageDirective,
-        RequiredMarkerDirective,
-        Select
+        RequiredMarkerDirective
     ],
     templateUrl: './secondary-data.component.html'
 })
 export class SecondaryDataComponent implements OnInit, OnDestroy {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly careerCreateStore = inject(CareerRegistrationStore);
-
-    protected institutions = [{code: '1', name: 'Yavirac'}];
-
     protected readonly form$: WritableSignal<SecondaryData> = signal(this.careerCreateStore.secondaryData());
-
     protected readonly formData: FieldTree<SecondaryData> = this.buildForm;
 
     constructor() {

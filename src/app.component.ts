@@ -1,6 +1,6 @@
 import {Component, inject, signal} from '@angular/core';
 import {RouterModule} from '@angular/router';
-import {CoreService, CustomMessageService} from "@utils/services";
+import {AppService, CustomMessageService} from "@utils/services";
 import {MessageModalComponent} from "@utils/components/message-modal/message-modal.component";
 import {Toast} from "primeng/toast";
 import {ConfirmDialog} from "primeng/confirmdialog";
@@ -33,7 +33,7 @@ import {MessageProcessingComponent} from "@utils/components/message-processing/m
         }`
 })
 export class AppComponent {
-    protected readonly coreService = inject(CoreService);
+    protected readonly coreService = inject(AppService);
     protected readonly customMessageService = inject(CustomMessageService);
     protected loading = signal(true);
 }
