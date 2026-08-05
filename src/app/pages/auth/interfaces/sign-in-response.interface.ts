@@ -1,4 +1,5 @@
 import { AuthInterface, RoleInterface, UserInterface } from '@modules/auth/interfaces';
+import {SchoolPeriodInterface} from "@modules/core/shared/interfaces";
 
 export interface SignInResponseInterface {
     data: DataSignInInterface;
@@ -13,4 +14,5 @@ export interface DataSignInInterface {
     accessToken: string;
     refreshToken: string;
     roles: RoleInterface[];
+    schoolPeriodOpen: SchoolPeriodInterface;
 }

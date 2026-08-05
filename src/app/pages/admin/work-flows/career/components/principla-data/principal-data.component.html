@@ -7,6 +7,20 @@
             </h4>
         </div>
 
+        <!-- photo -->
+        <div class="custom-form-field md:col-span-12">
+            <label
+                appLabel
+                for="photo"
+                label="Code"
+                [field]="formData.code">
+            </label>
+
+            <app-file-upload />
+
+            <small [appErrorMessage]="$any(formData.code)"></small>
+        </div>
+
         <!-- code -->
         <div class="custom-form-field md:col-span-12">
             <label

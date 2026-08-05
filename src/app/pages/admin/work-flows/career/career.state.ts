@@ -23,29 +23,6 @@ export interface SecondaryData {
     institution: InstitutionInterface | null;
 }
 
-export interface CareerInterface {
-    id: string;
-    code: string;
-    shortName: string;
-    logo: string;
-    resolutionNumber: string;
-    isEnabled: boolean;
-}
-
-export interface SchoolPeriodInterface {
-    id: string;
-    code: string;
-    shortName: string;
-    logo: string;
-    resolutionNumber: string;
-    isEnabled: boolean;
-}
-
-interface InstitutionInterface {
-    code: string;
-    name: string;
-}
-
 export const INITIAL_STATE: CareerState = {
     principalData: {
         code: '',
@@ -73,4 +50,40 @@ type SectionKeysMap = {
 export const SECTION_KEYS: SectionKeysMap = {
     principalData: PRINCIPAL_DATA_KEYS,
     secondaryData: SECONDARY_DATA_KEYS,
+};
+
+export interface CareerInterface {
+    id: string;
+    code: string;
+    shortName: string;
+    logo: string;
+    resolutionNumber: string;
+    isEnabled: boolean;
+}
+
+export interface SchoolPeriodInterface {
+    id: string;
+    code: string;
+    shortName: string;
+    logo: string;
+    resolutionNumber: string;
+    isEnabled: boolean;
+}
+
+export interface InstitutionInterface {
+    id: string;
+    code: string;
+    name: string;
+}
+
+export interface FilterState {
+    search: string;
+    schoolPeriodId: string;
+    institutionId: string;
+}
+
+export const INITIAL_FILTER_STATE: FilterState = {
+    search: '',
+    schoolPeriodId: '',
+    institutionId: '',
 };

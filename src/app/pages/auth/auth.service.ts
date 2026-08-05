@@ -5,6 +5,7 @@ import {environment} from '@env/environment';
 import {AuthInterface} from '@modules/auth/interfaces/auth.interface';
 import {RoleInterface} from '@modules/auth/interfaces/role.interface';
 import {CatalogueInterface} from "@utils/interfaces";
+import {SchoolPeriodInterface} from "@modules/core/shared/interfaces";
 
 @Injectable({
     providedIn: 'root'
@@ -93,5 +94,13 @@ export class AuthService {
 
     set securityQuestions(value: CatalogueInterface[]) {
         sessionStorage.setItem('security', JSON.stringify(value));
+    }
+
+    get schoolPeriodOpen(): SchoolPeriodInterface {
+        return JSON.parse(String(sessionStorage.getItem('schoolPeriodOpen')));
+    }
+
+    set schoolPeriodOpen(schoolPeriodInterface: SchoolPeriodInterface | undefined | null) {
+        sessionStorage.setItem('schoolPeriodOpen', JSON.stringify(schoolPeriodInterface));
     }
 }

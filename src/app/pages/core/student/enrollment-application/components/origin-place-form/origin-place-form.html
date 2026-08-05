@@ -1,0 +1,56 @@
+<div class="custom-form-card">
+    <form class="custom-form-grid md:grid-cols-12">
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="country" label="País" [field]="formData.country"></label>
+            <p-select class="ml-3" [options]="countries()" [formField]="$any(formData.country)" name="country" optionLabel="name" [filter]="true" pTooltip="Paises" filterBy="name" placeholder="Seleccione su país..."> </p-select>
+            <small [appErrorMessage]="$any(formData.country)"></small>
+        </div>
+
+        @if (formData.country().value()?.name == "Ecuador") {
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="province" label="Provincia" [field]="formData.province"></label>
+            <p-select class="ml-3" [options]="provinces()" [formField]="$any(formData.province)" name="province" optionLabel="name" [filter]="true" pTooltip="Provincias" filterBy="name" placeholder="Seleccione su provincia..."> </p-select>
+            <small [appErrorMessage]="$any(formData.province)"></small>
+        </div>
+        } @if (formData.province().value()) {
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="canton" label="Cantón" [field]="formData.canton"></label>
+            <p-select class="ml-3" [options]="cantons()" [formField]="$any(formData.canton)" name="canton" optionLabel="name" [filter]="true" pTooltip="Cantones" filterBy="name" placeholder="Seleccione su cantón..."> </p-select>
+            <small [appErrorMessage]="$any(formData.canton)"></small>
+        </div>
+        } @if (formData.canton().value()) {
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="parish" label="Parroquia" [field]="formData.parish"></label>
+            <p-select class="ml-3" [options]="parishes()" [formField]="$any(formData.parish)" name="parish" optionLabel="name" [filter]="true" pTooltip="Parroquias" filterBy="name" placeholder="Seleccione su parroquia..."> </p-select>
+            <small [appErrorMessage]="$any(formData.parish)"></small>
+        </div>
+        }
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="mainStreet" label="Calle Principal" [field]="formData.mainStreet"></label>
+            <input id="mainStreet" pInputText [formField]="formData.mainStreet" />
+            <small [appErrorMessage]="$any(formData.mainStreet)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="secondaryStreet" label="Calle Secundaria" [field]="formData.secondaryStreet"></label>
+            <input id="secondaryStreet" pInputText [formField]="formData.secondaryStreet" />
+            <small [appErrorMessage]="$any(formData.secondaryStreet)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="number" label="Número" [field]="formData.number"></label>
+            <input id="number" pInputText [formField]="formData.number" />
+            <small [appErrorMessage]="$any(formData.number)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="reference" label="Referencia" [field]="formData.reference"></label>
+            <input id="reference" pInputText [formField]="formData.reference" />
+            <small [appErrorMessage]="$any(formData.reference)"></small>
+        </div>
+        <div class="custom-form-field md:col-span-12">
+            <app-map [centerCoords]="selectedCenter()" (coordsChange)="onCoordsChange($event)"> </app-map>
+        </div>
+    </form>
+</div>

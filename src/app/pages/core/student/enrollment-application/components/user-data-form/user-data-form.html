@@ -1,0 +1,117 @@
+<div class="custom-form-card">
+
+    <form class="custom-form-grid md:grid-cols-12">
+        <div class="custom-form-section md:col-span-12">
+            <h4>Datos de Estudiante</h4>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="identificationType" label="Tipo de Identificación"
+                [field]="formData.identificationType"></label>
+            <p-select class="ml-3" [options]="identificationTypes()" [formField]="$any(formData.identificationType)"
+                name="identificationTaype" optionLabel="name" pTooltip="Tipo de Identificación" filterBy="name" dataKey="id"
+                placeholder="Seleccione Tipo de Identificación...">
+            </p-select>
+            <small [appErrorMessage]="$any(formData.identificationType)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="identification" label="Identificación" [field]="formData.identification"></label>
+            <input id="identification" pInputText [formField]="formData.identification" />
+            <small [appErrorMessage]="$any(formData.identification)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="name" label="Nombres" [field]="formData.name"></label>
+            <input id="name" pInputText [formField]="formData.name" />
+            <small [appErrorMessage]="$any(formData.name)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="lastnameField" label="Apellidos" [field]="formData.lastname"></label>
+            <input id="lastname" pInputText [formField]="formData.lastname" />
+            <small [appErrorMessage]="$any(formData.lastname)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="birthdate" label="Fecha de Nacimiento" [field]="formData.birthdate"></label>
+            <p-datepicker [formField]="$any(formData.birthdate)" [iconDisplay]="'input'" [showIcon]="true"
+                inputId="bithdate" name="birthday" dataType="string" dateFormat="yy-mm-dd" />
+            <small [appErrorMessage]="$any(formData.birthdate)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="maritalStatus" label="Estado Civil" [field]="formData.maritalStatus"></label>
+            <p-select class="ml-3" [options]="maritalStatuses()" [formField]="$any(formData.maritalStatus)"
+                name="maritalStatus" optionLabel="name" pTooltip="Estado Civil" filterBy="name" dataKey="id"
+                placeholder="Seleccione Estado Civil...">
+            </p-select>
+            <small [appErrorMessage]="$any(formData.maritalStatus)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="gender" label="Género" [field]="formData.gender"></label>
+            <p-select class="ml-3" [options]="genders()" [formField]="$any(formData.gender)" name="gender"
+                optionLabel="name" pTooltip="Género" filterBy="name" dataKey="id" placeholder="Seleccione Género...">
+            </p-select>
+            <small [appErrorMessage]="$any(formData.gender)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="sex" label="Sexo" [field]="formData.sex"></label>
+            <p-select class="ml-3" [options]="sexes()" [formField]="$any(formData.sex)" name="sex" optionLabel="name"
+                pTooltip="Sexo" filterBy="name" dataKey="id" placeholder="Seleccione Sexo...">
+            </p-select>
+            <small [appErrorMessage]="$any(formData.sex)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="ethnicOrigin" label="Origen Étnico" [field]="formData.ethnicOrigin"></label>
+            <p-select class="ml-3" [options]="ethnicOrigins()" [formField]="$any(formData.ethnicOrigin)"
+                name="ethnicOrigin" optionLabel="name" pTooltip="Origen Étnico" filterBy="name" dataKey="id"
+                placeholder="Seleccione Origen Étnico...">
+            </p-select>
+            <small [appErrorMessage]="$any(formData.ethnicOrigin)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="nationality" label="Nacionalidad" [field]="formData.nationality"></label>
+            <p-select class="ml-3" [options]="nationalities()" [formField]="$any(formData.nationality)"
+                name="nationality" optionLabel="name" pTooltip="Nacionalidad" filterBy="name" dataKey="id"
+                placeholder="Seleccione Nacionalidad...">
+            </p-select>
+            <small [appErrorMessage]="$any(formData.nationality)"></small>
+        </div>
+
+        <div class="custom-form-section md:col-span-12">
+            <h4>Información de Contacto</h4>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="" label="Correo Institucional" [field]="formData.email"></label>
+            <input id="email" pInputText [formField]="formData.email" type="email" />
+            <small [appErrorMessage]="$any(formData.email)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="personalEmailField" label="Correo Personal" [field]="formData.personalEmail"></label>
+            <input id="personalEmail" pInputText [formField]="formData.personalEmail" type="email" />
+            <small [appErrorMessage]="$any(formData.personalEmail)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="cellPhone" label="Celular" [field]="formData.cellPhone"></label>
+            <input id="cellPhone" pInputText [formField]="formData.cellPhone" />
+            <small [appErrorMessage]="$any(formData.cellPhone)"></small>
+        </div>
+
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="phone" label="Teléfono Convencional" [field]="formData.phone"></label>
+            <input id="phone" pInputText [formField]="formData.phone" />
+            <small [appErrorMessage]="$any(formData.phone)"></small>
+        </div>
+
+
+    </form>
+
+</div>

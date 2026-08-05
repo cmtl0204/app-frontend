@@ -45,6 +45,7 @@ export class SignInService {
                 this.authService.refreshToken = data.refreshToken;
                 this.authService.auth = data.auth;
                 this.authService.roles = data.roles;
+                this.authService.schoolPeriodOpen = data.schoolPeriodOpen;
 
                 if (data.roles.length === 1) {
                     this.authService.role = data.roles[0];

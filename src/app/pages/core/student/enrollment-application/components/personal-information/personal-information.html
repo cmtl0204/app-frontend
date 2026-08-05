@@ -1,0 +1,40 @@
+<div>
+    <p-accordion [(value)]="activePanel">
+        <p-accordion-panel value="user-data">
+            <p-accordion-header>
+                Informacon del Estudiante
+            </p-accordion-header>
+            <p-accordion-content>
+                <app-user-data-form/>
+            </p-accordion-content>
+        </p-accordion-panel>
+        <p-accordion-panel value="personal-data">
+            <p-accordion-header>
+                Datos Personales
+            </p-accordion-header>
+            <p-accordion-content>
+                <app-personal-data-form />
+            </p-accordion-content>
+        </p-accordion-panel>
+        <p-accordion-panel value="origin-place">
+            <p-accordion-header>
+                Lugar de Procedencia
+            </p-accordion-header>
+            <p-accordion-content>
+                <app-origin-place-form />
+            </p-accordion-content>
+        </p-accordion-panel>
+        <p-accordion-panel value="residence-place">
+            <p-accordion-header>
+                Lugar de residencia
+            </p-accordion-header>
+            <p-accordion-content>
+                <app-residence-place-form />
+            </p-accordion-content>
+        </p-accordion-panel>
+    </p-accordion>
+    <p-button (onClick)="onSubmit()">
+        Guardar y seguir
+    </p-button>
+
+</div>

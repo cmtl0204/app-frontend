@@ -3,11 +3,16 @@ import {Button} from "primeng/button";
 import {CareerService} from "../../career.service";
 import {CustomIcons} from "@utils/icons/custom-icons";
 import {TableModule} from "primeng/table";
-import {CareerInterface} from "@modules/admin/work-flows/career/career.state";
+import {
+    CareerInterface,
+    FilterState,
+    INITIAL_FILTER_STATE,
+    InstitutionInterface
+} from "@modules/admin/work-flows/career/career.state";
 import {InputText} from "primeng/inputtext";
 import {InputGroup} from "primeng/inputgroup";
 import {Paginator, PaginatorState} from "primeng/paginator";
-import {INITIAL_PAGINATION, PaginationInterface} from "@utils/interfaces";
+import {CatalogueInterface, INITIAL_PAGINATION, PaginationInterface} from "@utils/interfaces";
 import {ButtonActionComponent} from "@utils/components/button-action/button-action.component";
 import {ConfirmationService, MenuItem} from "primeng/api";
 import {Tooltip} from "primeng/tooltip";
@@ -21,6 +26,9 @@ import {
 import {Router} from "@angular/router";
 import {MY_ROUTES} from "@routes";
 import {debouncedSignal} from "@utils/helpers";
+import {Select} from "primeng/select";
+import {form, FormField} from "@angular/forms/signals";
+import {CatalogueService} from "@utils/services";
 
 @Component({
     selector: 'app-career-form-list',
@@ -31,43 +39,44 @@ import {debouncedSignal} from "@utils/helpers";
         InputGroup,
         Paginator,
         ButtonActionComponent,
-        Tooltip
+        Tooltip,
+        Select,
+        FormField
     ],
     templateUrl: './career-list.component.html'
 })
 export class CareerListComponent implements OnInit {
     private readonly router = inject(Router);
-    protected readonly careerService = inject(CareerService);
     private readonly confirmationService = inject(ConfirmationService);
     protected readonly CustomIcons = CustomIcons;
+    protected readonly careerService = inject(CareerService);
+    protected readonly catalogueService = inject(CatalogueService);
 
-    protected items = signal<CareerInterface[]>([]);
-    protected search = signal('');
-    private debouncedSearch = debouncedSignal(this.search);
-
-    protected pagination = signal<PaginationInterface>(INITIAL_PAGINATION);
-    protected buttonActions = signal<MenuItem[]>([]);
+    protected readonly items = signal<CareerInterface[]>([]);
+    protected readonly pagination = signal<PaginationInterface>(INITIAL_PAGINATION);
+    protected readonly buttonActions = signal<MenuItem[]>([]);
     protected isButtonActionsEnabled: boolean = false;
 
+    protected readonly filter = signal<FilterState>(INITIAL_FILTER_STATE);
+    protected readonly filterData = form<FilterState>(this.filter);
+    private readonly debouncedSearch = debouncedSignal(this.filter);
+
+    protected readonly institutions = signal<InstitutionInterface[]>([]);
+    protected readonly schoolPeriods = signal<CatalogueInterface[]>([]);
+
     constructor() {
-        //Effects
-        this.searching();
+        this.filtering();
     }
 
     ngOnInit(): void {
+        this.loadInstitutions();
+        this.loadSchoolPeriods();
         this.loadItems();
     }
 
-    protected onSearchInput(event: Event): void {
-        this.search.set((event.target as HTMLInputElement).value);
-    }
-
-    private searching(): void {
+    private filtering(): void {
         effect(() => {
-            const term = this.debouncedSearch();
-
-            if (term) this.findCareers(1, term);
-            else this.findCareers();
+            this.findCareers(1, this.debouncedSearch());
         });
     }
 
@@ -140,13 +149,25 @@ export class CareerListComponent implements OnInit {
         });
     }
 
-    private findCareers(page = 1, search = '') {
-        this.careerService.findCareers(page, search, '126ec046-d63d-4b04-8161-3a49a4802cb9').subscribe({
+    private findCareers(page = 1, filtered?: FilterState) {
+        this.careerService.findCareers(page, filtered).subscribe({
             next: (response) => {
                 this.items.set(response.data);
                 this.pagination.set(response.pagination!);
             }
         });
+    }
+
+    private loadInstitutions() {
+        this.careerService.loadInstitutions().subscribe({
+            next: (response) => {
+                this.institutions.set(response);
+            }
+        });
+    }
+
+    private loadSchoolPeriods() {
+        this.schoolPeriods.set(this.catalogueService.findByType('ACADEMIC_PERIOD'));
     }
 
     protected onSelect({item, index}: { item: any; index: number }) {

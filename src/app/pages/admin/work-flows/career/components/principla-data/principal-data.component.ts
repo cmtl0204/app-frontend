@@ -13,6 +13,7 @@ import {CatalogueInterface} from "@utils/interfaces";
 import {CareerService} from "@modules/admin/work-flows/career/career.service";
 import {CatalogueService, DpaHttpService} from "@utils/services";
 import {CatalogueTypeEnum} from "@utils/enums";
+import {FileUploadComponent} from "@utils/components/file-upload/file-upload.component";
 
 const FORM_STATE_KEY = 'principalData';
 
@@ -22,7 +23,8 @@ const FORM_STATE_KEY = 'principalData';
         InputText,
         FormField,
         LabelDirective,
-        ErrorMessageDirective
+        ErrorMessageDirective,
+        FileUploadComponent
     ],
     templateUrl: './principal-data.component.html'
 })
@@ -30,7 +32,6 @@ export class PrincipalDataComponent implements OnInit, OnDestroy {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly careerCreateStore = inject(CareerStore);
     protected readonly form$: WritableSignal<PrincipalData> = signal(this.careerCreateStore.principalData());
-    protected readonly careerRegistrationService = inject(CareerService);
     protected readonly catalogueService = inject(CatalogueService);
     protected readonly formData: FieldTree<PrincipalData> = this.buildForm();
     private formInitialized: boolean = false;

@@ -16,36 +16,6 @@ export class CareerService {
     private readonly httpClient = inject(HttpClient);
     private readonly apiUrl = `${environment.API_URL}/core/shared/careers`;
 
-    createCareer(payload: CareerState) {
-        const url = this.apiUrl;
-
-        return this.httpClient.post<HttpResponseInterface>(url, payload).pipe(
-            map((response) => {
-                return response.data;
-            })
-        );
-    }
-
-    updateCareer(id: string, payload: CareerState) {
-        const url = `${this.apiUrl}/${id}`;
-
-        return this.httpClient.put<HttpResponseInterface>(url, payload).pipe(
-            map((response) => {
-                return response.data;
-            })
-        );
-    }
-
-    deleteCareer(id: string) {
-        const url = `${this.apiUrl}/${id}`;
-
-        return this.httpClient.delete<HttpResponseInterface>(url).pipe(
-            map((response) => {
-                return response.data;
-            })
-        );
-    }
-
     findCareers(page: number, filtered?: FilterState): Observable<HttpResponseInterface> {
         const url = this.apiUrl;
 
@@ -81,25 +51,4 @@ export class CareerService {
             })
         );
     }
-
-    loadInstitutions(): Observable<InstitutionInterface[]> {
-        const url = `${this.apiUrl}/institutions`;
-
-        return this.httpClient.get<HttpResponseInterface>(url).pipe(
-            map((response) => {
-                return response.data;
-            })
-        );
-    }
-
-    loadSchoolPeriods(): Observable<SchoolPeriodInterface[]> {
-        const url = `${this.apiUrl}/school-periods`;
-
-        return this.httpClient.get<HttpResponseInterface>(url).pipe(
-            map((response) => {
-                return response.data;
-            })
-        );
-    }
-
 }

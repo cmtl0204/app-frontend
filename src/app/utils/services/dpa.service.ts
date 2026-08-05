@@ -12,7 +12,7 @@ export class DpaService {
         return dpa ? JSON.parse(dpa) as DpaInterface[] : [];
     }
 
-    async findProvinces(): Promise<DpaInterface[]> {
+    findProvinces():DpaInterface[] {
         const dpa = sessionStorage.getItem(CoreEnum.dpa);
 
         const dpaParse = dpa ? JSON.parse(dpa) as DpaInterface[] : [];
@@ -22,7 +22,7 @@ export class DpaService {
         });
     }
 
-    async findDpaByParentId(parentId: string): Promise<DpaInterface[]> {
+    findDpaByParentId(parentId: string): DpaInterface[] {
         const dpa = sessionStorage.getItem(CoreEnum.dpa);
 
         const dpaParse = dpa ? JSON.parse(dpa) as DpaInterface[] : [];

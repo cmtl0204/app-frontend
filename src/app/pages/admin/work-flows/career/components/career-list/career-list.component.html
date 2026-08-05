@@ -7,29 +7,54 @@
     <ng-template #caption>
         <div class="custom-form-grid">
             <div class="custom-form-grid md:grid-cols-12">
-                <div class="custom-form-field md:col-span-8">
+                <div class="custom-form-field md:col-span-3">
                     <h2>Listado de Carreras</h2>
                 </div>
 
+                <div class="custom-form-field-row md:col-span-6 justify-start">
+                    <p-button label="Acción 1" [icon]="CustomIcons.DOWNLOAD_SOLID" severity="success"/>
+                    <p-button label="Acción 2" [icon]="CustomIcons.FILE_PDF_SOLID" severity="danger"/>
+                    <p-button label="Acción 3" [icon]="CustomIcons.FILE_AUDIO_SOLID" severity="info"/>
+                </div>
+            </div>
+
+            <div class="custom-form-grid md:grid-cols-12">
                 <div class="custom-form-field md:col-span-4">
                     <p-input-group>
                         <input
                             pInputText
-                            type="text"
-                            [value]="search()"
-                            (input)="onSearchInput($event)"
+                            [formField]="filterData.search"
                             placeholder="Buscar..."/>
 
                         <p-button [icon]="CustomIcons.MAGNIFYING_GLASS_SOLID"></p-button>
                     </p-input-group>
                 </div>
 
-                <div class="custom-form-field-row md:col-span-12 justify-start">
-                    <p-button label="Acción 1" [icon]="CustomIcons.DOWNLOAD_SOLID" severity="success"/>
-                    <p-button label="Acción 2" [icon]="CustomIcons.FILE_PDF_SOLID" severity="danger"/>
-                    <p-button label="Acción 3" [icon]="CustomIcons.FILE_AUDIO_SOLID" severity="info"/>
+                <div class="custom-form-field md:col-span-4">
+                    <p-select
+                        id="institution"
+                        dataKey="id"
+                        [options]="institutions()"
+                        optionLabel="name"
+                        placeholder="Seleccione"
+                        optionValue="id"
+                        [formField]="$any(filterData.institutionId)"/>
                 </div>
 
+                <div class="custom-form-field md:col-span-4">
+                    <p-select
+                        id="schoolPeriod"
+                        dataKey="id"
+                        [options]="schoolPeriods()"
+                        optionLabel="name"
+                        placeholder="Seleccione"
+                        optionValue="id"
+                        [formField]="$any(filterData.schoolPeriodId)"
+                        [required]="true"/>
+                </div>
+            </div>
+
+            <div class="custom-form-grid md:grid-cols-12">
                 <div class="custom-form-field md:col-span-12">
                     <p-paginator
                         (onPageChange)="onPageChange($event)"

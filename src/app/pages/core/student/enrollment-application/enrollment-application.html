@@ -1,0 +1,37 @@
+@if(isDataLoad() == false){
+<div>
+    <p-stepper [value]="pageActual()" [linear]="true">
+        <!-- [linear]="true" -->
+        <p-step-list>
+            <p-step [value]="1">Datos Personales</p-step>
+            <p-step [value]="2">Solicitud de Matricula</p-step>
+            <p-step [value]="3">Subir Archivos</p-step>
+        </p-step-list>
+        <p-step-panels>
+            <p-step-panel [value]="1">
+                <ng-template #content let-activateCallback="activateCallback" let-value="value">
+                    @if(pageActual() == 1 ){
+                        <app-personal-information />
+                    }
+                </ng-template>
+            </p-step-panel>
+            <p-step-panel [value]="2">
+                <ng-template #content let-activateCallback="activateCallback" let-value="value">
+                    @if(pageActual() == 2){
+
+                        <app-application />
+                    }
+                </ng-template>
+            </p-step-panel>
+            <p-step-panel [value]="3">
+                <ng-template #content let-activateCallback="activateCallback"let-value="value">
+                    @if(pageActual() == 3){
+                        <app-enrollment-attachment />
+
+                    }
+                </ng-template>
+            </p-step-panel>
+        </p-step-panels>
+    </p-stepper>
+</div>
+}
