@@ -63,12 +63,12 @@ export class UserDataForm {
         });
     }
     private loadAllCatalogues(): void {
-        this.identificationTypes.set(this.catalogueService.findByType(CatalogueTypeEnum.users_identification_type));
-        this.maritalStatuses.set(this.catalogueService.findByType(CatalogueTypeEnum.users_marital_status));
-        this.genders.set(this.catalogueService.findByType(CatalogueTypeEnum.users_gender));
-        this.sexes.set(this.catalogueService.findByType(CatalogueTypeEnum.users_sex));
-        this.ethnicOrigins.set(this.catalogueService.findByType(CatalogueTypeEnum.users_ethnic_origin));
-        this.nationalities.set(this.catalogueService.findByType(CatalogueTypeEnum.users_nationality));
+        this.identificationTypes.set(this.catalogueService.findByType(CatalogueTypeEnum.usersIdentificationType));
+        this.maritalStatuses.set(this.catalogueService.findByType(CatalogueTypeEnum.usersMaritalStatus));
+        this.genders.set(this.catalogueService.findByType(CatalogueTypeEnum.usersGender));
+        this.sexes.set(this.catalogueService.findByType(CatalogueTypeEnum.usersSex));
+        this.ethnicOrigins.set(this.catalogueService.findByType(CatalogueTypeEnum.usersEthnicOrigin));
+        this.nationalities.set(this.catalogueService.findByType(CatalogueTypeEnum.usersNationality));
     }
 
 }

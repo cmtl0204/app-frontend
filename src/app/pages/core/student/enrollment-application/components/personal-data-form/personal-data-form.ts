@@ -108,34 +108,34 @@ export class PersonalDataForm {
 
     private loadAllCatalogues() {
         this.workingHourstype.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_working_hours_type)
+            this.catalogueService.findByType(CatalogueTypeEnum.workingHours)
         );
         this.monthlySalarys.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_monthly_salary)
+            this.catalogueService.findByType(CatalogueTypeEnum.informationStudentsMonthlySalary)
         );
         this.foreignLanguageNames.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_foreign_language_name)
+            this.catalogueService.findByType(CatalogueTypeEnum.informationStudentsForeignLanguageName)
         );
         this.ancestralLanguageNames.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_ancestral_language_name)
+            this.catalogueService.findByType(CatalogueTypeEnum.informationStudentsAncestralLanguageName)
         );
         this.indigenousNationalitys.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_indigenous_nationality)
+            this.catalogueService.findByType(CatalogueTypeEnum.informationStudentsIndigenousNationality)
         );
         this.towns.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_town)
+            this.catalogueService.findByType(CatalogueTypeEnum.informationStudentsTown)
         );
         this.disabilityTypes.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_disability_type)
+            this.catalogueService.findByType(CatalogueTypeEnum.informationStudentsDisabilityType)
         );
         this.contactEmergencyKinships.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_contact_emergency_kinship)
+            this.catalogueService.findByType(CatalogueTypeEnum.informationStudentsContactEmergencyKinship)
         );
         this.semesters.set(
-            this.catalogueService.findByType(CatalogueTypeEnum.users_academic_period)
+            this.catalogueService.findByType(CatalogueTypeEnum.academicPeriod)
         );
         //la carrera viene de catalogo
-        this.careers.set(this.catalogueService.findByType(CatalogueTypeEnum.users_career))
+        this.careers.set(this.catalogueService.findByType(CatalogueTypeEnum.careersType))
     }
 
 }
