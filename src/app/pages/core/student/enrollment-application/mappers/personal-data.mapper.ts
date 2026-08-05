@@ -1,6 +1,14 @@
-import { EnrollmentApplicationState, PersonalData, UserData, LocationData, ApplicationData } from "../enrollment-application.state";
+import {EnrollmentApplicationState, LocationData, PersonalData, UserData} from "../enrollment-application.state";
 
 export class EnrollmentApplicationMapper {
+
+    static toPayloadDto(state: EnrollmentApplicationState) {
+        return {
+            personalInfoPayload:this.toPersonalInformationDto(state),
+            originPayload:this.toOriginPlaceDto(state),
+            residencePayload:this.toResidencePlaceDto(state),
+        };
+    }
 
     static toPersonalInformationDto(state: EnrollmentApplicationState) {
         return {
@@ -11,13 +19,13 @@ export class EnrollmentApplicationMapper {
 
     static toOriginPlaceDto(state: EnrollmentApplicationState) {
         return {
-            user: { originAddress: this.mapLocation(state.originPlace) },
+            user: {originAddress: this.mapLocation(state.originPlace)},
         };
     }
 
     static toResidencePlaceDto(state: EnrollmentApplicationState) {
         return {
-            user: { residenceAddress: this.mapLocation(state.residencePlace) },
+            user: {residenceAddress: this.mapLocation(state.residencePlace)},
         };
     }
 

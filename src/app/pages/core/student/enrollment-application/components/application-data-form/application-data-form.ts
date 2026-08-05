@@ -1,6 +1,6 @@
-import {Component, effect, inject, signal, WritableSignal} from '@angular/core';
+import {Component, effect, inject, signal} from '@angular/core';
 import {ApplicationData, AvailableSubjectResponse} from '../../enrollment-application.state';
-import {validateApplicationData} from '../../validators/application-data-form.validation';
+import {applyApplicationDataValidation,} from '../../validators/application-data-form.validation';
 import {FieldTree, form, FormField} from '@angular/forms/signals';
 import {FormRegistryService} from '@utils/services/form-registry.service';
 import {EnrollmentAplicationStore} from '../../enrollment-application.store';
@@ -16,47 +16,41 @@ import {AuthService} from '@modules/auth/auth.service';
 import {CareerInterface, SchoolPeriodInterface} from '@modules/core/shared/interfaces';
 import {SchoolPeriodService} from '@modules/core/shared/services/school-period.service';
 import {CareerService} from '@modules/core/shared/services/career.service';
+import {Tooltip} from "primeng/tooltip";
 
 const FORM_STATE_KEY = "application"
 
 @Component({
     selector: 'app-application-data-form',
-    imports: [TableModule, Select, LabelDirective, FormField],
+    imports: [TableModule, Select, LabelDirective, FormField, Tooltip],
     templateUrl: './application-data-form.html',
 })
 export class ApplicationDataForm {
     private readonly formRegistryService = inject(FormRegistryService);
-    private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
+    private readonly store = inject(EnrollmentAplicationStore);
+    private readonly authService = inject(AuthService)
     protected readonly catalogueService = inject(CatalogueService);
     protected readonly careerService = inject(CareerService);
     private readonly enrollmentService = inject(EnrollmentsService);
     private readonly schoolPeriodsService = inject(SchoolPeriodService)
-    private readonly authService = inject(AuthService)
-
 
     protected readonly CustomIcons = CustomIcons;
-    protected loading = signal(false)
-
-    //todas las variables protected o private
 
     protected academicPeriods = signal<CatalogueInterface[]>([]);
     protected schoolPeriods = signal<SchoolPeriodInterface[]>([]);
-    protected workdays: WritableSignal<CatalogueInterface[]> = signal([]);
-    protected parallels: WritableSignal<CatalogueInterface[]> = signal([]);
+    protected workdays = signal<CatalogueInterface[]>([]);
+    protected parallels = signal<CatalogueInterface[]>([]);
+    protected careers = signal<CareerInterface[]>([]);
 
-    // TODO: institutionId - Determinar de dónde se debe obtener para inyectarlo en la consulta de carreras (si el backend lo requiere)
-    protected careers: WritableSignal<CareerInterface[]> = signal([]);
-
-    protected items: WritableSignal<AvailableSubjectResponse[]> = signal([]);
+    protected items = signal<AvailableSubjectResponse[]>([]);
     protected selectedItems = signal<any[] | null>(null);
 
-
-    protected form$: WritableSignal<ApplicationData> = signal(this.enrollmentApplicationStore.application());
-    protected formData: FieldTree<ApplicationData> = this.buildForm();
+    protected form$ = signal<ApplicationData>(this.store.application());
+    protected formData = this.buildForm();
 
     constructor() {
         effect(() => {
-            this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
+            this.store.updateSection(FORM_STATE_KEY, this.form$());
         });
 
         effect(() => {
@@ -85,7 +79,7 @@ export class ApplicationDataForm {
             console.log('student: ', this.formData.student().value())
 
             if (career && schoolPeriod?.id && academicPeriod?.id && workday?.id && parallel?.id) {
-                this.loadSubjectsForEnrollment(
+                this.findSubjectsForEnrollment(
                     career.id,
                     schoolPeriod.id,
                     academicPeriod.id,
@@ -106,67 +100,50 @@ export class ApplicationDataForm {
     }
 
     private buildForm(): FieldTree<ApplicationData> {
-        return form(this.form$, (schema) => validateApplicationData(schema));
+        return form(this.form$, (schema) => applyApplicationDataValidation(schema));
     }
 
     ngOnInit(): void {
+        console.log('ngOnInit')
         this.formRegistryService.register(
             'Solicitud de Matricula',
             FORM_STATE_KEY,
             this.formData,
             this.form$()
         );
-        this.formData.student().reset(this.enrollmentApplicationStore.student);
-        //student por defecto logueado
+
+        this.formData.student().reset(this.store.student);
+
         //cargar los datos reales desde los servicios
-        const data = this.enrollmentApplicationStore.application();
+        const data = this.store.application();
+
         this.selectedItems.set(data.enrollmentDetails?.length ? [...data.enrollmentDetails] : null);
 
         this.loadAllCatalogues();
-        this.fetchSchoolPeriods();
     }
 
     ngOnDestroy(): void {
-        this.formRegistryService.unregister('application');
+        this.formRegistryService.unregister(FORM_STATE_KEY);
     }
 
     onSelectionChange(selected: any[]) {
         this.selectedItems.set(selected);
     }
 
-    previous() {
-        this.enrollmentApplicationStore.setStep(1);
-    }
-
     private loadAllCatalogues() {
-        this.loading.set(true)
-        try {
-            this.academicPeriods.set(this.catalogueService.findByType(CatalogueTypeEnum.academicPeriod));
-            this.workdays.set(this.catalogueService.findByType(CatalogueTypeEnum.workday));
-            this.parallels.set(this.catalogueService.findByType(CatalogueTypeEnum.parallel));
-
-            // TODO: institutionId - Cuando se conecte al servicio real, inyectar el institutionId si es necesario.
-            this.careerService.findCareers(1, '').subscribe({
-                next: (response) => {
-                    console.log('career: ', response)
-                    this.careers.set(response.data);
-                }
-            });
-
-        } catch (error) {
-        } finally {
-            this.loading.set(false)
-        }
-
-    }
-
-    private async fetchSchoolPeriods() {
+        this.academicPeriods.set(this.catalogueService.findByType(CatalogueTypeEnum.academicPeriod));
+        this.workdays.set(this.catalogueService.findByType(CatalogueTypeEnum.enrollmentsWorkday));
+        this.parallels.set(this.catalogueService.findByType(CatalogueTypeEnum.parallel));
         this.schoolPeriods.set([this.authService.schoolPeriodOpen]);
+
+        this.careerService.loadCareers().subscribe({
+            next: (response) => {
+                this.careers.set(response);
+            }
+        });
     }
 
-    private async loadSubjectsForEnrollment(careerId: string, schoolPeriodId: string, academicPeriodId: string, workdayId: string, parallelId: string): Promise<void> {
-        // TODO: institutionId - Revisar si el backend requerirá el institutionId aquí también para mayor seguridad
-
+    private findSubjectsForEnrollment(careerId: string, schoolPeriodId: string, academicPeriodId: string, workdayId: string, parallelId: string) {
         const payload = {
             careerId,
             schoolPeriodId,
@@ -175,22 +152,13 @@ export class ApplicationDataForm {
             parallelId
         };
 
+        // this.items.set([]);
+
         this.enrollmentService.getAvailableSubjects(payload).subscribe({
-            next: ({data}) => {
-                this.items.set(data);
-                console.log('respuesta: ', data);
-            },
-            error: (error) => {
-                console.error(error);
-                this.items.set([]);
+            next: (response) => {
+                this.items.set(response);
+                console.log('respuesta: ', response);
             },
         });
-
-        // Mock temporal para que no se rompa la vista mientras se armama el backend
-        // this.items.set([
-        //     { code: 'DS-101', name: 'Programación Orientada a Objetos', id: '1' },
-        //     { code: 'DS-102', name: 'Bases de Datos', id: '2' }
-        // ]);
     }
-
 }

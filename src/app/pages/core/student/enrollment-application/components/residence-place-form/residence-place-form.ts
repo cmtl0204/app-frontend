@@ -1,23 +1,25 @@
-import { Component, computed, effect, inject, signal, WritableSignal } from '@angular/core';
-import { LocationData, LocationInterface } from '../../enrollment-application.state';
-import { FormRegistryService } from '@utils/services/form-registry.service';
-import { EnrollmentAplicationStore } from '../../enrollment-application.store';
-import { FieldTree, form, FormField } from '@angular/forms/signals';
-import { validateOriginPlace } from '../../validators/validate-origin-place';
-import { MapComponent, MapCoords } from '../map/map';
-import { Select } from 'primeng/select';
-import { ErrorMessageDirective } from '@utils/directives/error-message.directive';
-import { LabelDirective } from '@utils/directives/label.directive';
-import { InputText } from 'primeng/inputtext';
-import { DpaService } from '@utils/services/dpa.service';
-import { CatalogueService } from '@utils/services';
-import { CatalogueTypeEnum } from '@utils/enums';
+import {Component, computed, effect, inject, signal, WritableSignal} from '@angular/core';
+import {LocationData} from '../../enrollment-application.state';
+import {FormRegistryService} from '@utils/services/form-registry.service';
+import {EnrollmentAplicationStore} from '../../enrollment-application.store';
+import {FieldTree, form, FormField} from '@angular/forms/signals';
+import {validateOriginPlace} from '../../validators/validate-origin-place';
+import {Select} from 'primeng/select';
+import {ErrorMessageDirective} from '@utils/directives/error-message.directive';
+import {LabelDirective} from '@utils/directives/label.directive';
+import {InputText} from 'primeng/inputtext';
+import {DpaService} from '@utils/services/dpa.service';
+import {CatalogueService} from '@utils/services';
+import {CatalogueTypeEnum} from '@utils/enums';
+import {MapCoords} from "@utils/interfaces";
+import {MapLeafletComponent} from "@utils/components/map-leaflet/map-leaflet.component";
 
 
 const FORM_STATE_KEY = "residencePlace"
+
 @Component({
     selector: 'app-residence-place-form',
-    imports: [FormField, Select, ErrorMessageDirective, LabelDirective, InputText, MapComponent],
+    imports: [FormField, Select, ErrorMessageDirective, LabelDirective, InputText, MapLeafletComponent],
     templateUrl: './residence-place-form.html',
 })
 export class ResidencePlaceForm {
@@ -93,8 +95,8 @@ export class ResidencePlaceForm {
         }
 
         return {
-            latitude: selected.latitude.toString(),
-            longitude: selected.longitude.toString(),
+            latitude: selected.latitude,
+            longitude: selected.longitude,
         };
     });
 

@@ -7,7 +7,7 @@ import {AppService, CustomMessageService} from "@utils/services";
 import SignInForm from "@modules/auth/components/sign-in/components/sign-in-form";
 import {SignInService} from "@modules/auth/components/sign-in/sign-in.service";
 import {SignInStore} from "@modules/auth/components/sign-in/sign-in.store";
-import {SignInData, SignInState} from "@modules/auth/components/sign-in/sign-in.state";
+import {SignInState} from "@modules/auth/components/sign-in/sign-in.state";
 import {Router, RouterLink} from "@angular/router";
 import {RoleInterface} from "@modules/auth/interfaces";
 import {Dialog} from "primeng/dialog";
@@ -177,7 +177,6 @@ export default class SignInContainer implements OnInit {
     }
 
     private signIn(payload: SignInState) {
-        console.log('singin form')
         this.service.signIn(payload).subscribe({
             next: (data) => {
                 if (data.roles.length === 1) {

@@ -8,17 +8,19 @@ import {Select} from "primeng/select";
 import {ErrorMessageDirective} from '@utils/directives/error-message.directive';
 import {LabelDirective} from '@utils/directives/label.directive';
 import {InputText} from 'primeng/inputtext';
-import {MapComponent, MapCoords} from '../map/map';
 import {DpaService} from '@utils/services/dpa.service';
 import {CatalogueService} from '@utils/services';
 import {CatalogueTypeEnum} from '@utils/enums';
+import {MapLeafletComponent} from "@utils/components/map-leaflet/map-leaflet.component";
+import {MapCoords} from "@utils/interfaces";
+import {Tooltip} from "primeng/tooltip";
 
 
 const FORM_STATE_KEY = "originPlace"
 
 @Component({
     selector: 'app-origin-place-form',
-    imports: [FormField, Select, ErrorMessageDirective, Select, LabelDirective, InputText, MapComponent],
+    imports: [FormField, Select, ErrorMessageDirective, Select, LabelDirective, InputText, MapLeafletComponent, Tooltip],
     templateUrl: './origin-place-form.html',
 })
 export class OriginPlaceForm {
@@ -79,26 +81,17 @@ export class OriginPlaceForm {
     }
 
     protected readonly selectedCenter = computed<MapCoords | null>(() => {
-        const locations = [
-            this.formData.parish().value(),
-            this.formData.canton().value(),
-            this.formData.province().value(),
-            this.formData.country().value(),
-        ];
+        console.log('selectedCenter');
 
-        const selected = locations.find(
-            location =>
-                location?.latitude != null &&
-                location?.longitude != null
-        );
+        const selected = this.formData.parish().value()
 
         if (!selected || !selected.latitude || !selected.longitude) {
             return null;
         }
 
         return {
-            latitude: selected.latitude.toString(),
-            longitude: selected.longitude.toString(),
+            latitude: selected.latitude,
+            longitude: selected.longitude,
         };
     });
 

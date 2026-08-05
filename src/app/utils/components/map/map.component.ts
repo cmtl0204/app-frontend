@@ -1,6 +1,5 @@
-import { Component, EventEmitter, input, Input, OnChanges, OnInit, output, Output, SimpleChanges } from '@angular/core';
-import { PrimeIcons } from 'primeng/api';
-import { GoogleMapsModule } from '@angular/google-maps';
+import {Component, input, OnChanges, OnInit, output, SimpleChanges} from '@angular/core';
+import {GoogleMapsModule} from '@angular/google-maps';
 
 interface Coordinate {
     lat: number;

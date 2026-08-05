@@ -1,57 +1,97 @@
-@if(loading()==false){
-<form class="custom-form-grid md:grid-cols-12">
+<div class="custom-form-card">
+    <form class="custom-form-grid md:grid-cols-12">
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="schoolPeriod" label="Perido Lectivo" [field]="formData.schoolPeriod"></label>
 
-    <div class="custom-form-field md:col-span-6">
-        <label appLabel for="career" label="Carrera" [field]="formData.career"></label>
-        <p-select [options]="careers()" [formField]="$any(formData.career)" name="career" optionLabel="name"
-            pTooltip="Carreras" filterBy="name" dataKey="id" placeholder="Seleccione una carrera...">
-        </p-select>
+            <p-select
+                dataKey="id"
+                [options]="schoolPeriods()"
+                [formField]="$any(formData.schoolPeriod)"
+                optionLabel="name"
+                pTooltip="Periodo Lectivo"
+                [filter]="false"
+                filterBy="name"
+                placeholder="Seleccione una malla curricular..."/>
+        </div>
 
-    </div>
-    <div class="custom-form-field md:col-span-6">
-        <label appLabel for="schoolPeriod" label="Malla" [field]="formData.schoolPeriod"></label>
-        <p-select [options]="schoolPeriods()" [formField]="$any(formData.schoolPeriod)" name="schoolPeriod"
-            optionLabel="name" pTooltip="Mallas Curriculares" [filter]="true" filterBy="name" dataKey="id"
-            placeholder="Seleccione una malla curricular...">
-        </p-select>
+        <div class="custom-form-field md:col-span-6">
+            <label appLabel for="career" label="Carrera" [field]="formData.career"></label>
 
-    </div>
-    <div class="custom-form-field md:col-span-6">
-        <label appLabel for="academicPeriod" label="Periodo academico" [field]="formData.academicPeriod"></label>
-        <p-select [options]="academicPeriods()" [formField]="$any(formData.academicPeriod)" name="academicPeriod"
-            optionLabel="name" pTooltip="Semestre" filterBy="name" dataKey="id" placeholder="Seleccione un semestre...">
-        </p-select>
-        <!-- [ngModelOptions]="{standalone: true}" se puede cambiar por name   cambiar por name y probar -->
-    </div>
-    <div class="custom-form-field md:col-span-6">
-        <label appLabel for="workday" label="Horario" [field]="formData.workday"></label>
-        <p-select [options]="workdays()" [formField]="$any(formData.workday)" name="workday" optionLabel="name"
-            pTooltip="Horario" filterBy="name" dataKey="id" [filter]="true" placeholder="Seleccione un horario...">
-        </p-select>
+            <p-select
+                dataKey="id"
+                [options]="careers()"
+                [formField]="$any(formData.career)"
+                optionLabel="name"
+                pTooltip="Carreras"
+                [filter]="false"
+                filterBy="name"
+                placeholder="Seleccione una carrera..."/>
+        </div>
 
-    </div>
-    <div class="custom-form-field md:col-span-6">
-        <label appLabel for="parallel" label="Paralelo" [field]="formData.parallel"></label>
-        <p-select [options]="parallels()" [formField]="$any(formData.parallel)" name="parallel" optionLabel="name"
-            pTooltip="Paralelo" filterBy="name" dataKey="id" [filter]="true" placeholder="Seleccione un paralelo...">
-        </p-select>
+        <div class="custom-form-field md:col-span-4">
+            <label
+                appLabel
+                for="academicPeriod"
+                label="Periodo academico"
+                [field]="formData.academicPeriod"></label>
 
-    </div>
+            <p-select
+                dataKey="id"
+                [options]="academicPeriods()"
+                [formField]="$any(formData.academicPeriod)"
+                optionLabel="name"
+                pTooltip="Semestre"
+                [filter]="false"
+                filterBy="name"
+                placeholder="Seleccione un semestre..."/>
+        </div>
 
-    <div class="custom-form-section md:col-span-12">
-        <h3>Total Asignaturas: {{ selectedItems()?.length ?? 0 }}</h3>
-    </div>
+        <div class="custom-form-field md:col-span-4">
+            <label appLabel for="workday" label="Horario" [field]="formData.workday"></label>
 
-</form>
-<p-table #dt [value]="items()" [tableStyle]="{ 'min-width': '50rem' }" stripedRows [selection]="selectedItems()"
-    (selectionChange)="onSelectionChange($event)">
+            <p-select
+                dataKey="id"
+                [options]="workdays()"
+                [formField]="$any(formData.workday)"
+                optionLabel="name"
+                pTooltip="Horario"
+                [filter]="false"
+                filterBy="name"
+                placeholder="Seleccione un horario...">
+            </p-select>
+        </div>
+
+        <div class="custom-form-field md:col-span-4">
+            <label appLabel for="parallel" label="Paralelo" [field]="formData.parallel"></label>
+            <p-select
+                dataKey="id"
+                [options]="parallels()"
+                [formField]="$any(formData.parallel)"
+                optionLabel="name"
+                pTooltip="Paralelo"
+                [filter]="false"
+                filterBy="name"
+                placeholder="Seleccione un paralelo..."/>
+        </div>
+
+        <div class="custom-form-section md:col-span-12">
+            <h3>Total Asignaturas: {{ selectedItems()?.length ?? 0 }}</h3>
+        </div>
+    </form>
+</div>
+
+<p-table
+    #dt
+    stripedRows
+    [value]="items()"
+    [tableStyle]="{ 'min-width': '50rem' }"
+    [selection]="formData.enrollmentDetails">
     <ng-template #caption>
         <div class="custom-form-grid">
             <div class="custom-form-grid md:grid-cols-12">
                 <div class="custom-form-field md:col-span-9">
                     <h2>Listado de Asignaturas</h2>
                 </div>
-
             </div>
         </div>
     </ng-template>
@@ -59,7 +99,7 @@
     <ng-template #header>
         <tr>
             <th style="width:4rem">
-                <p-tableHeaderCheckbox />
+                <p-tableHeaderCheckbox/>
             </th>
             <th>Código</th>
             <th>Nombre</th>
@@ -69,7 +109,7 @@
     <ng-template #body let-item>
         <tr>
             <td>
-                <p-tableCheckbox [value]="item" />
+                <p-tableCheckbox [value]="item"/>
             </td>
             <td>{{ item.code }}</td>
             <td>{{ item.name }}</td>
@@ -82,4 +122,3 @@
         </tr>
     </ng-template>
 </p-table>
-}

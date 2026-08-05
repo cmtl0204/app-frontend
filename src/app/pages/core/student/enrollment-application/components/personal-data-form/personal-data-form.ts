@@ -17,11 +17,12 @@ import { CatalogueInterface } from '@utils/interfaces';
 import { CatalogueService } from '@utils/services';
 import { CatalogueTypeEnum } from '@utils/enums';
 import { CareerService } from '@modules/admin/work-flows/career/career.service';
+import {ToggleSwitchComponent} from "@utils/components/toggle-switch/toggle-switch.component";
 const FORM_STATE_KEY = "personalData"
 
 @Component({
     selector: 'app-personal-data-form',
-    imports: [FormField, Checkbox, DatePickerModule, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select],
+    imports: [FormField, Checkbox, DatePickerModule, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, ToggleSwitchComponent],
     templateUrl: './personal-data-form.html',
 })
 export class PersonalDataForm {

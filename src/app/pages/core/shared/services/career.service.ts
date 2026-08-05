@@ -42,6 +42,16 @@ export class CareerService {
         );
     }
 
+    loadCareers(): Observable<CareerInterface[]> {
+        const url = this.apiUrl;
+
+        return this.httpClient.get<HttpResponseInterface>(url).pipe(
+            map((response) => {
+                return response.data;
+            })
+        );
+    }
+
     findCareer(id: string): Observable<CareerInterface> {
         const url = `${this.apiUrl}/${id}`;
 

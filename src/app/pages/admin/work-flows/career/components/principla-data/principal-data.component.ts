@@ -91,7 +91,7 @@ export class PrincipalDataComponent implements OnInit, OnDestroy {
     // }
 
     private findLevels2() {
-        this.levels = this.catalogueService.findByType(CatalogueTypeEnum.users_security_question);
+        this.levels = this.catalogueService.findByType(CatalogueTypeEnum.usersSecurityQuestion);
         console.log(this.levels);
     }
 }

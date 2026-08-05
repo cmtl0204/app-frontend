@@ -1,10 +1,11 @@
-import { Component, computed, inject, OnInit } from '@angular/core';
-import { StepperModule } from 'primeng/stepper';
-import { Application } from "./components/application/application";
-import { EnrollmentAttachment } from './components/enrollment-attachment/enrollment-attachment';
-import { PersonalInformation } from './components/personal-information/personal-information';
-import { EnrollmentAplicationStore } from './enrollment-application.store';
-import { StudentsService } from './services/students.srvices';
+import {Component, computed, inject, OnInit, signal} from '@angular/core';
+import {StepperModule} from 'primeng/stepper';
+import {Application} from "./components/application/application";
+import {EnrollmentAttachment} from './components/enrollment-attachment/enrollment-attachment';
+import {PersonalInformation} from './components/personal-information/personal-information';
+import {EnrollmentAplicationStore} from './enrollment-application.store';
+import {StudentsService} from './services/students.srvices';
+import {AppService} from "@utils/services";
 
 
 @Component({
@@ -15,29 +16,19 @@ import { StudentsService } from './services/students.srvices';
 export class EnrollmentApplication implements OnInit {
     private readonly studentService = inject(StudentsService)
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
+    protected readonly appService = inject(AppService);
+    protected actualPage = signal<number>(2)
 
-    protected isDataLoad = computed(() => this.enrollmentApplicationStore.isLoading())
 
-    Page1 = this.enrollmentApplicationStore.paso1Completo
-    Page2 = this.enrollmentApplicationStore.paso2Completo
-    stepPlane = (page: number) => this.enrollmentApplicationStore.setStep(page)
-    pageActual = () => this.enrollmentApplicationStore.pasoActual()
     ngOnInit() {
-        this.fecthData()
+        this.loadData()
     }
-    fecthData() {
-        this.enrollmentApplicationStore.isLoading.set(true);
 
-        this.studentService.getCurrentDraft()
-            .subscribe({
-                next: (response) => {
-                    this.enrollmentApplicationStore.isLoading.set(false)
-                    this.enrollmentApplicationStore.hydrateFromServer(response.data);
-                },
-                error: () => {
-                    this.enrollmentApplicationStore.isLoading.set(false)
-                    // Manejar el error o dejar que use el sessionStorage
-                }
-            });
+    loadData() {
+        this.studentService.getCurrentDraft().subscribe({
+            next: (response) => {
+                this.enrollmentApplicationStore.hydrateFromServer(response);
+            }
+        });
     }
 }

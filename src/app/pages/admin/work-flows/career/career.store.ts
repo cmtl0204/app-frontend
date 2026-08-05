@@ -1,4 +1,4 @@
-import {computed, Injectable, signal} from "@angular/core";
+import {computed, effect, Injectable, signal} from "@angular/core";
 import {CareerState, INITIAL_STATE, SECTION_KEYS} from "./career.state";
 import {pickKeys} from "@utils/helpers/pickKeys.helper";
 
@@ -12,6 +12,11 @@ export class CareerStore {
     readonly principalData = computed(() => this.formState().principalData);
     readonly secondaryData = computed(() => this.formState().secondaryData);
 
+    constructor() {
+        effect(() => {
+            sessionStorage.setItem(FORM_STATE_KEY, JSON.stringify(this.formState()));
+        });
+    }
 
     updateSection<K extends keyof CareerState>(
         section: K,

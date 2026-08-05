@@ -1,7 +1,7 @@
 import { required, SchemaPathTree } from "@angular/forms/signals"
 import { ApplicationData } from "../enrollment-application.state"
 //nombre de el archivo application-data.validation.ts
-export function validateApplicationData(schema:SchemaPathTree<ApplicationData>){
+export function applyApplicationDataValidation(schema:SchemaPathTree<ApplicationData>){
 required(schema.student,{
     message:'El estudiante es necesario'
 })

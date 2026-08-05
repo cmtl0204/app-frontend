@@ -151,11 +151,11 @@ export const MY_ROUTES = {
             }
         },
         student: {
-            base: 'students',
-            absolute: '/main/core/students',
+            base: 'student',
+            absolute: '/main/core/student',
             dashboard: {
                 base: 'dashboard',
-                absolute: '/main/core/students/dashboard'
+                absolute: '/main/core/student/dashboard'
             },
             grade: {
                 base: 'grades',

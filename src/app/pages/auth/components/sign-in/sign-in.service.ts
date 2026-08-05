@@ -23,7 +23,6 @@ export class SignInService {
     private readonly dpaService = inject(DpaService);
 
     signIn(payload: SignInState) {
-        console.log('singin Service');
         const url = `${this.apiUrl}/auth/sign-in`;
 
         return forkJoin({

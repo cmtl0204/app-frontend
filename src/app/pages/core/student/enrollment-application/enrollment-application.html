@@ -1,6 +1,5 @@
-@if(isDataLoad() == false){
 <div>
-    <p-stepper [value]="pageActual()" [linear]="true">
+    <p-stepper [value]="actualPage()" [linear]="false">
         <!-- [linear]="true" -->
         <p-step-list>
             <p-step [value]="1">Datos Personales</p-step>
@@ -10,23 +9,22 @@
         <p-step-panels>
             <p-step-panel [value]="1">
                 <ng-template #content let-activateCallback="activateCallback" let-value="value">
-                    @if(pageActual() == 1 ){
-                        <app-personal-information />
+                    @if (actualPage() == 1) {
+                        <app-personal-information/>
                     }
                 </ng-template>
             </p-step-panel>
             <p-step-panel [value]="2">
                 <ng-template #content let-activateCallback="activateCallback" let-value="value">
-                    @if(pageActual() == 2){
-
-                        <app-application />
+                    @if (actualPage() == 2) {
+                        <app-application/>
                     }
                 </ng-template>
             </p-step-panel>
             <p-step-panel [value]="3">
-                <ng-template #content let-activateCallback="activateCallback"let-value="value">
-                    @if(pageActual() == 3){
-                        <app-enrollment-attachment />
+                <ng-template #content let-activateCallback="activateCallback" let-value="value">
+                    @if (actualPage() == 3) {
+                        <app-enrollment-attachment/>
 
                     }
                 </ng-template>
@@ -34,4 +32,3 @@
         </p-step-panels>
     </p-stepper>
 </div>
-}
