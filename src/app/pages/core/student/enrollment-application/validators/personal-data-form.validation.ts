@@ -6,7 +6,7 @@ import {
 } from '@angular/forms/signals';
 import { PersonalData } from '../enrollment-application.state';
 
-export function validatePersonalData(schema: SchemaPathTree<PersonalData> ): void {
+export function applyPersonalDataValidation(schema: SchemaPathTree<PersonalData> ): void {
     const isDisability = ({ valueOf }: any) => !!valueOf(schema.isDisability);
     const isCatastrophicIllness = ({ valueOf }: any) => !!valueOf(schema.isCatastrophicIllness);
     const isAncestralLanguage = ({ valueOf }: any) => !!valueOf(schema.isAncestralLanguage);

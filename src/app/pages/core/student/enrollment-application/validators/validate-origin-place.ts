@@ -6,7 +6,7 @@ import {
 } from '@angular/forms/signals';
 import { LocationData } from '../enrollment-application.state';
 
-export function validateOriginPlace(schema: SchemaPathTree<LocationData>): void {
+export function applyOriginPlaceValidation(schema: SchemaPathTree<LocationData>): void {
     // País
     required(schema.country, { message: 'El país es requerido' });
 

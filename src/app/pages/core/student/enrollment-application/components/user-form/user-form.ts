@@ -10,18 +10,18 @@ import { AccordionModule } from 'primeng/accordion';
 import { LabelDirective } from '@utils/directives/label.directive';
 import { ErrorMessageDirective } from '@utils/directives/error-message.directive';
 import { Select } from 'primeng/select';
-import { validateUserData } from '../../validators/user-data-form.validation';
+import { applyUserDataValidation } from '../../validators/user-data-form.validation';
 import { DatePicker } from "primeng/datepicker";
 import { CatalogueService } from '@utils/services';
 import { CatalogueTypeEnum } from '@utils/enums';
 import { CatalogueInterface } from '@utils/interfaces';
 const FORM_STATE_KEY = 'userData'
 @Component({
-    selector: 'app-user-data-form',
+    selector: 'app-user-form',
     imports: [FormField, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, DatePicker],
-    templateUrl: './user-data-form.html',
+    templateUrl: './user-form.html',
 })
-export class UserDataForm {
+export class UserForm {
 
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
@@ -59,7 +59,7 @@ export class UserDataForm {
     }
     private buildForm(): FieldTree<UserData> {
         return form(this.form$, (schema) => {
-            validateUserData(schema);
+            applyUserDataValidation(schema);
         });
     }
     private loadAllCatalogues(): void {

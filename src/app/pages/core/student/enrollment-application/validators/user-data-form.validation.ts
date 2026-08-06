@@ -1,7 +1,7 @@
 import { pattern, required, SchemaPathTree, validate } from "@angular/forms/signals"
 import { UserData } from "../enrollment-application.state"
 
-export function validateUserData(schema: SchemaPathTree<UserData>) {
+export function applyUserDataValidation(schema: SchemaPathTree<UserData>) {
 
     required(schema.birthdate,
         { message: 'La fecha de nacimiento es necesaria' }

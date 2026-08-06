@@ -21,11 +21,11 @@ import {Tooltip} from "primeng/tooltip";
 const FORM_STATE_KEY = "application"
 
 @Component({
-    selector: 'app-application-data-form',
+    selector: 'app-application-form',
     imports: [TableModule, Select, LabelDirective, FormField, Tooltip],
-    templateUrl: './application-data-form.html',
+    templateUrl: './application-form.html',
 })
-export class ApplicationDataForm {
+export class ApplicationForm {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly store = inject(EnrollmentAplicationStore);
     private readonly authService = inject(AuthService)

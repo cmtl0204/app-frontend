@@ -8,6 +8,7 @@
 
 /* 3. Tailwind (Debe ir después de los @use de Sass para no romper la regla) */
 @import './tailwind.css';
+@import "leaflet/dist/leaflet.css";
 
 @layer components {
     .custom-form-card {

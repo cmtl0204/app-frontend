@@ -3,7 +3,7 @@ import {LocationData} from '../../enrollment-application.state';
 import {FormRegistryService} from '@utils/services/form-registry.service';
 import {EnrollmentAplicationStore} from '../../enrollment-application.store';
 import {FieldTree, form, FormField} from '@angular/forms/signals';
-import {validateOriginPlace} from '../../validators/validate-origin-place';
+import {applyOriginPlaceValidation} from '../../validators/validate-origin-place';
 import {Select} from 'primeng/select';
 import {ErrorMessageDirective} from '@utils/directives/error-message.directive';
 import {LabelDirective} from '@utils/directives/label.directive';
@@ -102,7 +102,7 @@ export class ResidencePlaceForm {
 
     get buildForm() {
         return form(this.form$, (schema) => {
-            validateOriginPlace(schema);
+            applyOriginPlaceValidation(schema);
         });
     }
 

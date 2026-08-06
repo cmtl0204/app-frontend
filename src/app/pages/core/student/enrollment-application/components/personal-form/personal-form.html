@@ -89,7 +89,7 @@
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="isCatastrophicIllness" label="¿Padece una enfermedad catastrófica?"
                    [field]="formData.isCatastrophicIllness"></label>
-            <p-checkbox [binary]="true" [formField]="formData.isCatastrophicIllness" inputId="isCatastrophicIllness"/>
+            <app-toggle-switch  [formField]="formData.isCatastrophicIllness"/>
         </div>
 
         @if (formData.isCatastrophicIllness().value()) {
@@ -128,7 +128,7 @@
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="isAncestralLanguage" label="¿Habla un idioma ancestral?"
                    [field]="formData.isAncestralLanguage"></label>
-            <p-checkbox [binary]="true" [formField]="formData.isAncestralLanguage" inputId="isAncestralLanguage"/>
+            <app-toggle-switch [formField]="formData.isAncestralLanguage"/>
         </div>
 
         @if (formData.isAncestralLanguage().value()) {
@@ -150,7 +150,7 @@
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="isForeignLanguageField" label="¿Habla un idioma extranjero?"
                    [field]="formData.isForeignLanguage"></label>
-            <p-checkbox [binary]="true" [formField]="formData.isForeignLanguage" inputId="isForeignLanguage"/>
+            <app-toggle-switch [formField]="formData.isForeignLanguage"/>
         </div>
 
         @if (formData.isForeignLanguage().value()) {
@@ -174,12 +174,12 @@
         </div>
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="isHouseHead" label="¿Es jefe de hogar?" [field]="formData.isHouseHead"></label>
-            <p-checkbox [binary]="true" [formField]="formData.isHouseHead" inputId="isHouseHead"/>
+            <app-toggle-switch [formField]="formData.isHouseHead"/>
         </div>
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="isHasChildren" label="¿Tiene hijos?" [field]="formData.isHasChildren"></label>
-            <p-checkbox [binary]="true" [formField]="formData.isHasChildren" inputId="isHasChildren"/>
+            <app-toggle-switch [formField]="formData.isHasChildren"/>
         </div>
 
         @if (formData.isHasChildren().value()) {
@@ -193,7 +193,7 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="isWork" label="¿Actualmente trabaja?" [field]="formData.isWork"></label>
-            <p-checkbox [binary]="true" [formField]="formData.isWork" inputId="isWork"/>
+            <app-toggle-switch [formField]="formData.isWork"/>
         </div>
 
         @if (formData.isWork().value()) {
@@ -233,13 +233,13 @@
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="isSocialSecurity" label="¿Posee Seguro Social (IESS)?"
                    [field]="formData.isSocialSecurity"></label>
-            <p-checkbox [binary]="true" [formField]="formData.isSocialSecurity" inputId="isSocialSecurity"/>
+            <app-toggle-switch [formField]="formData.isSocialSecurity"/>
         </div>
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="isPrivateSecurity" label="¿Posee Seguro Privado?"
                    [field]="formData.isPrivateSecurity"></label>
-            <p-checkbox [binary]="true" [formField]="formData.isPrivateSecurity" inputId="isPrivateSecurity"/>
+            <app-toggle-switch [formField]="formData.isPrivateSecurity" />
         </div>
 
     </form>

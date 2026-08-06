@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ApplicationDataForm } from "../application-data-form/application-data-form";
+import { ApplicationForm } from "../application-form/application-form";
 import { Button } from "primeng/button";
 import { CustomMessageService } from '@utils/services';
 import { EnrollmentAplicationStore } from '../../enrollment-application.store';
@@ -10,11 +10,11 @@ import { EnrollmentsService } from '../../services/enrollments.service';
 
 const FORM_STATE_KEY = "application"
 @Component({
-    selector: 'app-application',
-    imports: [ApplicationDataForm, Button],
-    templateUrl: './application.html',
+    selector: 'app-application-container',
+    imports: [ApplicationForm, Button],
+    templateUrl: './application-container.html',
 })
-export class Application {
+export class ApplicationContainer {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly customMessageService = inject(CustomMessageService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);

@@ -60,10 +60,10 @@
             <small [appErrorMessage]="$any(formData.reference)"></small>
         </div>
         <div class="custom-form-field md:col-span-12">
-<!--            <app-map-leaflet-->
-<!--                map="originPlace"-->
-<!--                [centerCoords]="selectedCenter()"-->
-<!--                (onChange)="onCoordsChange($event)"/>-->
+            <app-map-leaflet
+                map="originPlace"
+                [centerCoords]="selectedCenter()"
+                (onChange)="onCoordsChange($event)"/>
         </div>
     </form>
 </div>

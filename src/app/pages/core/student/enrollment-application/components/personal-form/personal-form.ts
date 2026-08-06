@@ -3,8 +3,7 @@ import { PersonalData } from '../../enrollment-application.state';
 import { FieldTree, form, FormField } from '@angular/forms/signals';
 import { EnrollmentAplicationStore } from '../../enrollment-application.store';
 import { FormRegistryService } from '@utils/services/form-registry.service';
-import { validatePersonalData } from '../../validators/personal-data-form.validation';
-import { Checkbox } from "primeng/checkbox";
+import { applyPersonalDataValidation } from '../../validators/personal-data-form.validation';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputText } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
@@ -21,11 +20,11 @@ import {ToggleSwitchComponent} from "@utils/components/toggle-switch/toggle-swit
 const FORM_STATE_KEY = "personalData"
 
 @Component({
-    selector: 'app-personal-data-form',
-    imports: [FormField, Checkbox, DatePickerModule, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, ToggleSwitchComponent],
-    templateUrl: './personal-data-form.html',
+    selector: 'app-personal-form',
+    imports: [FormField, DatePickerModule, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, ToggleSwitchComponent],
+    templateUrl: './personal-form.html',
 })
-export class PersonalDataForm {
+export class PersonalForm {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
     protected readonly catalogueService = inject(CatalogueService);
@@ -103,7 +102,7 @@ export class PersonalDataForm {
 
     private buildForm(): FieldTree<PersonalData> {
         return form(this.form$, (schema) => {
-            validatePersonalData(schema);
+            applyPersonalDataValidation(schema);
         });
     }
 
