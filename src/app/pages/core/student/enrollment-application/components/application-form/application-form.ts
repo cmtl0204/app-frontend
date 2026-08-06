@@ -71,6 +71,36 @@ export class ApplicationForm {
 
         //Buscar materias cuando los 5 filtros tengan valor
         effect(() => {
+            const schoolPeriod = this.formData.schoolPeriod().value();
+
+            //TODO consultar el teacherDistribution
+            const teacherDistributions = [];
+
+            const lastEnrollment = enrollmentsDetails[enrollmentsDetails.length - 1];
+
+            const academicPeriod = teacherDistributions.find(item => item.subject.academicPeriod.code == lastEnrollment.academicPeriod.code + 1).map(item => {
+                return item.subject.academicPeriod;
+            })
+
+            this.formData.academicPeriod().reset(academicPeriod);
+
+            const workdays = teacherDistributions.filter(item => {
+                return item.subject.academicPeriod.id == this.formData.academicPeriod().value().id
+            }).map(item => {
+                return item.workday;
+            })
+
+            this.workdays.set(workdays);
+
+            const parallels = teacherDistributions.filter(item => {
+                return item.subject.academicPeriod.id == this.formData.academicPeriod().value().id
+                    && item.workday.id == this.formData.workday().value().id
+            }).map(item => {
+                return item.parallel;
+            })
+        })
+
+        effect(() => {
             const career = this.formData.career().value();
             const schoolPeriod = this.formData.schoolPeriod().value();
             const academicPeriod = this.formData.academicPeriod().value();

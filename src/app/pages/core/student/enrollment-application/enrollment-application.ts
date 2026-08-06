@@ -6,6 +6,10 @@ import {PersonalInformation} from './components/personal-information/personal-in
 import {EnrollmentAplicationStore} from './enrollment-application.store';
 import {StudentsService} from './services/students.srvices';
 import {AppService} from "@utils/services";
+import {INITIAL_STATE} from "@modules/admin/work-flows/career/career.state";
+import {
+    INITIAL_ENROLLMENT_APPLICATION_STATE
+} from "@modules/core/student/enrollment-application/enrollment-application.state";
 
 
 @Component({
@@ -17,7 +21,7 @@ export class EnrollmentApplication implements OnInit {
     private readonly studentService = inject(StudentsService)
     private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
     protected readonly appService = inject(AppService);
-    protected actualPage = signal<number>(1)
+    protected actualPage = this.enrollmentApplicationStore.currentStep;
 
 
     ngOnInit() {
@@ -27,7 +31,11 @@ export class EnrollmentApplication implements OnInit {
     loadData() {
         this.studentService.getCurrentDraft().subscribe({
             next: (response) => {
-                this.enrollmentApplicationStore.hydrateFromServer(response);
+                const data = JSON.parse(sessionStorage.getItem('formState')!);
+
+                if (!data?.userData?.identification) {
+                    this.enrollmentApplicationStore.hydrateFromServer(response);
+                }
             }
         });
     }

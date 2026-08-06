@@ -71,25 +71,14 @@ export class ResidencePlaceForm {
 
     }
 
-
     ngOnDestroy(): void {
         this.formRegistryService.unregister(FORM_STATE_KEY);
     }
 
     protected readonly selectedCenter = computed<MapCoords | null>(() => {
-        const locations = [
-            this.formData.parish().value(),
-            this.formData.canton().value(),
-            this.formData.province().value(),
-            this.formData.country().value(),
-        ];
+        const selected = this.formData.parish().value()
 
-        const selected = locations.find(
-            location =>
-                location?.latitude != null &&
-                location?.longitude != null
-        );
-
+        console.log('selectedCenter')
         if (!selected || !selected.latitude || !selected.longitude) {
             return null;
         }
@@ -105,7 +94,6 @@ export class ResidencePlaceForm {
             applyOriginPlaceValidation(schema);
         });
     }
-
 
     // Para el Mapa
     onCoordsChange(coords: MapCoords): void {

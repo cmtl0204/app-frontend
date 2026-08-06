@@ -28,21 +28,12 @@ export class PersonalInformation {
 
     activePanel = 'user-data';
 
-    nextPanel() {
-        this.activePanel = 'origin-place';
-    }
-
-    nextResidence() {
-        this.activePanel = 'residence-place';
-    }
-
-    nextPersonal() {
-        this.activePanel = 'personal-data';
-    }
-
     onSubmit() {
-        const studentId = this.authService.auth.student.id
+        const studentId = this.authService.auth.student.id;
+
         // 1. Validar que no haya errores en ninguno de los formularios del acordeón
+
+        console.log(this.enrollmentApplicationStore.formState());
         if (this.formRegistryService.hasErrors()) {
             this.customMessageService.showFormErrors(this.formRegistryService.errors());
             return;

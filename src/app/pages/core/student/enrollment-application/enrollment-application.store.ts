@@ -58,6 +58,7 @@ export class EnrollmentAplicationStore {
 
     private loadFromStorage(): EnrollmentApplicationState {
         const stored = sessionStorage.getItem(FORM_STATE_KEY);
+
         return stored ? JSON.parse(stored) : INITIAL_ENROLLMENT_APPLICATION_STATE;
     }
 

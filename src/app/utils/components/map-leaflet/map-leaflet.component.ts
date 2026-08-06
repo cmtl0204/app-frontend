@@ -1,6 +1,6 @@
-import { Component, effect, input, output, afterNextRender } from '@angular/core';
-import { LatLng, Map, marker, tileLayer, Marker } from "leaflet";
-import { MapCoords } from "@utils/interfaces";
+import {Component, effect, input, output, afterNextRender} from '@angular/core';
+import {LatLng, Map, marker, tileLayer, Marker, icon} from "leaflet";
+import {MapCoords} from "@utils/interfaces";
 
 @Component({
     selector: 'app-map-leaflet',
@@ -8,12 +8,19 @@ import { MapCoords } from "@utils/interfaces";
     styleUrls: ['./map-leaflet.component.scss']
 })
 export class MapLeafletComponent {
-    map = input.required<string>({ alias: 'map' });
+    map = input.required<string>({alias: 'map'});
     centerCoords = input<MapCoords | null>();
     onChange = output<MapCoords>();
 
     private leafletMap!: Map;
     private markerItem!: Marker;
+
+    private myIcon = icon({
+        iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+        shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+        iconSize: [25, 41],
+        iconAnchor: [12, 41]
+    });
 
     constructor() {
         // Inicializamos el mapa solo una vez cuando el DOM ya esté listo
@@ -24,17 +31,23 @@ export class MapLeafletComponent {
         // Este effect solo se encarga de mover el mapa/marcador cuando cambian las coordenadas (Ej: al seleccionar Parroquia)
         effect(() => {
             const coords = this.centerCoords();
+
             if (coords?.latitude && coords?.longitude && this.leafletMap) {
                 const newLatLng = new LatLng(coords.latitude, coords.longitude);
 
                 // Mueve la vista del mapa
                 this.leafletMap.setView(newLatLng, 14);
 
+                this.onChange.emit({
+                    latitude: coords?.latitude,
+                    longitude: coords?.longitude
+                });
+                console.log('lat', coords?.latitude, 'lng', coords?.longitude);
                 // Actualiza o crea el marcador
                 if (this.markerItem) {
                     this.markerItem.setLatLng(newLatLng);
                 } else {
-                    this.markerItem = marker(newLatLng).addTo(this.leafletMap).bindPopup('Mi Ubicación');
+                    this.markerItem = marker(newLatLng, {icon: this.myIcon}).addTo(this.leafletMap).bindPopup('Mi Ubicación');
                 }
             }
         });
@@ -55,7 +68,9 @@ export class MapLeafletComponent {
         }).addTo(this.leafletMap);
 
         if (this.centerCoords()) {
-            this.markerItem = marker([lat, lng]).addTo(this.leafletMap).bindPopup('Mi Ubicación');
+            this.markerItem = marker([lat, lng], {
+                icon: this.myIcon
+            }).addTo(this.leafletMap).bindPopup('Mi Ubicación');
         }
 
         // Evento click en el mapa
