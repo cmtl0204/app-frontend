@@ -1,11 +1,12 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
-import {environment} from '@env/environment';
-import {Observable, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
-import {HttpResponseInterface} from '@utils/interfaces';
-import {PersonalInformationDto} from '../enrollment-application.state';
-import {StudentInterface} from '@modules/core/shared/interfaces';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { environment } from '@env/environment';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { HttpResponseInterface } from '@utils/interfaces';
+import { PersonalInformationDto } from '../enrollment-application.state';
+import { StudentInterface } from '@modules/core/shared/interfaces';
+import { EnrollmentDetailResponse } from '@modules/core/shared/interfaces/enrollment-detail.interface';
 
 
 @Injectable({
@@ -32,7 +33,7 @@ export class StudentsService {
             .append('page', page)
             .append('search', search);
 
-        return this.httpClient.get<HttpResponseInterface>(url, {headers, params}).pipe(
+        return this.httpClient.get<HttpResponseInterface>(url, { headers, params }).pipe(
             map((response) => {
                 return response;
             })
@@ -45,6 +46,15 @@ export class StudentsService {
         return this.httpClient.get<HttpResponseInterface>(url).pipe(
             map(response => {
                 return response.data;
+            })
+        );
+    }
+    enrollmentDetail(id: string): Observable<EnrollmentDetailResponse> {
+        const url = `${this.apiUrl}/${id}/enrollment-details`;
+
+        return this.httpClient.get<EnrollmentDetailResponse>(url).pipe(
+            map(response => {
+                return response;
             })
         );
     }

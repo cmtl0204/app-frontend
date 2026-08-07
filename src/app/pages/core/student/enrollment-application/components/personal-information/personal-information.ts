@@ -22,7 +22,7 @@ import { forkJoin, tap } from 'rxjs';
 export class PersonalInformation {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly customMessageService = inject(CustomMessageService);
-    private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
+    private readonly store = inject(EnrollmentAplicationStore);
     private readonly studentsService = inject(StudentsService);
     private readonly authService = inject(AuthService)
 
@@ -33,13 +33,13 @@ export class PersonalInformation {
 
         // 1. Validar que no haya errores en ninguno de los formularios del acordeón
 
-        console.log(this.enrollmentApplicationStore.formState());
+        console.log(this.store.formState());
         if (this.formRegistryService.hasErrors()) {
             this.customMessageService.showFormErrors(this.formRegistryService.errors());
             return;
         }
 
-        const formState = this.enrollmentApplicationStore.formState();
+        const formState = this.store.formState();
 
         // 3. Mapear el estado a los 3 payloads que el backend nuevo espera por separado
         // const personalInfoPayload = EnrollmentApplicationMapper.toPersonalInformationDto(formState);
@@ -72,7 +72,7 @@ export class PersonalInformation {
         })
             .pipe(
                 tap(() => {
-                    this.enrollmentApplicationStore.setStep(2);
+                    this.store.setStep(2);
                 })
             )
             .subscribe();

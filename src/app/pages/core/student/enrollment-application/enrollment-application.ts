@@ -19,9 +19,9 @@ import {
 })
 export class EnrollmentApplication implements OnInit {
     private readonly studentService = inject(StudentsService)
-    private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
+    private readonly store = inject(EnrollmentAplicationStore);
     protected readonly appService = inject(AppService);
-    protected actualPage = this.enrollmentApplicationStore.currentStep;
+    protected actualPage = this.store.currentStep;
 
 
     ngOnInit() {
@@ -33,8 +33,9 @@ export class EnrollmentApplication implements OnInit {
             next: (response) => {
                 const data = JSON.parse(sessionStorage.getItem('formState')!);
 
+
                 if (!data?.userData?.identification) {
-                    this.enrollmentApplicationStore.hydrateFromServer(response);
+                    this.store.hydrateFromServer(response);
                 }
             }
         });

@@ -26,11 +26,11 @@ const FORM_STATE_KEY = "personalData"
 })
 export class PersonalForm {
     private readonly formRegistryService = inject(FormRegistryService);
-    private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
+    private readonly store = inject(EnrollmentAplicationStore);
     protected readonly catalogueService = inject(CatalogueService);
     protected readonly careerService = inject(CareerService);
 
-    protected readonly form$: WritableSignal<PersonalData> = signal(this.enrollmentApplicationStore.personalData())
+    protected readonly form$: WritableSignal<PersonalData> = signal(this.store.personalData())
 
     protected readonly formData: FieldTree<PersonalData> = this.buildForm();
     //tambien signals todas las opciones
@@ -47,7 +47,7 @@ export class PersonalForm {
 
     constructor() {
         effect(() => {
-            this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
+            this.store.updateSection(FORM_STATE_KEY, this.form$());
         });
         effect(() => {
             if (!this.formData.isDisability().value()) {

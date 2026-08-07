@@ -25,11 +25,11 @@ const FORM_STATE_KEY = "originPlace"
 })
 export class OriginPlaceForm {
     private readonly formRegistryService = inject(FormRegistryService);
-    private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
+    private readonly store = inject(EnrollmentAplicationStore);
     //el catalogo para location debe se dpa , para qeu hat provinces , canton y parish
     private readonly catalogueService = inject(CatalogueService);
     private readonly dpaService = inject(DpaService);
-    protected readonly form$: WritableSignal<LocationData> = signal(this.enrollmentApplicationStore.originPlace());
+    protected readonly form$: WritableSignal<LocationData> = signal(this.store.originPlace());
     protected readonly formData: FieldTree<LocationData> = this.buildForm;
 
     // Catálogo raíz (sin padre)
@@ -60,7 +60,7 @@ export class OriginPlaceForm {
 
     constructor() {
         effect(() => {
-            this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
+            this.store.updateSection(FORM_STATE_KEY, this.form$());
         })
     }
 

@@ -11,7 +11,8 @@
                 pTooltip="Periodo Lectivo"
                 [filter]="false"
                 filterBy="name"
-                placeholder="Seleccione una malla curricular..."/>
+                [disabled]="true"
+                placeholder="Seleccione un periodo lectivo..."/>
         </div>
 
         <div class="custom-form-field md:col-span-6">
@@ -43,6 +44,7 @@
                 pTooltip="Semestre"
                 [filter]="false"
                 filterBy="name"
+                [disabled]="true"
                 placeholder="Seleccione un semestre..."/>
         </div>
 
@@ -85,7 +87,8 @@
     stripedRows
     [value]="items()"
     [tableStyle]="{ 'min-width': '50rem' }"
-    [selection]="formData.enrollmentDetails">
+    [selection]="selectedItems()"
+    (selectionChange)="onSelectionChange($event)">
     <ng-template #caption>
         <div class="custom-form-grid">
             <div class="custom-form-grid md:grid-cols-12">

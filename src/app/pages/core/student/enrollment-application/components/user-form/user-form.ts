@@ -24,11 +24,11 @@ const FORM_STATE_KEY = 'userData'
 export class UserForm {
 
     private readonly formRegistryService = inject(FormRegistryService);
-    private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
+    private readonly store = inject(EnrollmentAplicationStore);
     protected readonly catalogueService = inject(CatalogueService);
 
 
-    protected readonly form$: WritableSignal<UserData> = signal(this.enrollmentApplicationStore.userData())
+    protected readonly form$: WritableSignal<UserData> = signal(this.store.userData())
 
     protected readonly formData: FieldTree<UserData> = this.buildForm();
 
@@ -40,7 +40,7 @@ export class UserForm {
     protected nationalities: WritableSignal<CatalogueInterface[]> = signal([])
     constructor() {
         effect(() => {
-            this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
+            this.store.updateSection(FORM_STATE_KEY, this.form$());
         });
     }
 

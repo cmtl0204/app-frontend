@@ -25,10 +25,10 @@ const FORM_STATE_KEY = "residencePlace"
 export class ResidencePlaceForm {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly dpaService = inject(DpaService);
-    private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
+    private readonly store = inject(EnrollmentAplicationStore);
     private readonly catalogueService = inject(CatalogueService);
 
-    protected readonly form$: WritableSignal<LocationData> = signal(this.enrollmentApplicationStore.residencePlace());
+    protected readonly form$: WritableSignal<LocationData> = signal(this.store.residencePlace());
     protected readonly formData: FieldTree<LocationData> = this.buildForm;
 
     protected readonly countries = computed(() => {
@@ -57,7 +57,7 @@ export class ResidencePlaceForm {
 
     constructor() {
         effect(() => {
-            this.enrollmentApplicationStore.updateSection(FORM_STATE_KEY, this.form$());
+            this.store.updateSection(FORM_STATE_KEY, this.form$());
         })
     }
 

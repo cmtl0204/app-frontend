@@ -32,6 +32,7 @@ export class EnrollmentAplicationStore {
 
     readonly currentStep = signal<number>(Number(sessionStorage.getItem(CURRENT_STEP_KEY)) || 1);
     readonly student = this.authService.auth.student;
+    readonly schoolPeriod = this.authService.schoolPeriodOpen;
 
     constructor() {
         effect(() => {

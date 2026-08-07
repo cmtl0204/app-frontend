@@ -14,20 +14,20 @@ import { EnrollmentAplicationStore } from '../../enrollment-application.store';
 })
 export class EnrollmentAttachment {
     private readonly customMessageService = inject(CustomMessageService);
-    private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
+    private readonly store = inject(EnrollmentAplicationStore);
     private readonly catalogueService = inject(CatalogueService)
     private readonly fileHttpService = inject(FileHttpService)
     protected readonly CustomIcons = CustomIcons;
     protected catalog: WritableSignal<CatalogueInterface[]> = signal([]);
     files = signal<File[]>([]);
-    protected modelId = this.enrollmentApplicationStore.student.id
+    protected modelId = this.store.student.id
 
     onSelect(event: FileSelectEvent) {
         this.files.set(event.files);
         console.log(this.files());
     }
     previous() {
-        this.enrollmentApplicationStore.setStep(2);
+        this.store.setStep(2);
     }
     ngOnInit() {
         this.loadCatalogue()

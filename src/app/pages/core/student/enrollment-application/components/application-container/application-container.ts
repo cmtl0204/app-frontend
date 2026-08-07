@@ -17,12 +17,12 @@ const FORM_STATE_KEY = "application"
 export class ApplicationContainer {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly customMessageService = inject(CustomMessageService);
-    private readonly enrollmentApplicationStore = inject(EnrollmentAplicationStore);
+    private readonly store = inject(EnrollmentAplicationStore);
     private readonly enrollmentService = inject(EnrollmentsService)
     protected readonly CustomIcons = CustomIcons;
 
     previous() {
-        this.enrollmentApplicationStore.setStep(1);
+        this.store.setStep(1);
     }
 
     onSubmit() {
@@ -31,16 +31,16 @@ export class ApplicationContainer {
             return;
         }
 
-        if (!this.enrollmentApplicationStore.application()) return;
+        if (!this.store.application()) return;
 
         const payload = EnrollmentApplicationMapper.toApplicationDto(
-            this.enrollmentApplicationStore.formState()
+            this.store.formState()
         );
 
         this.enrollmentService.sendRegistration(payload).subscribe({
             next: (response) => {
                 console.log(response);
-                this.enrollmentApplicationStore.setStep(3);
+                this.store.setStep(3);
             },
             error: (error) => {
                 console.error(error);
