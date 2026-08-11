@@ -1,18 +1,22 @@
 
 @for(item of catalog() ; track item.id){
-    <h4>{{item.name}}</h4>
+   <div class="mb-4">
+    <span>{{ item.name }}</span>
+
     <p-fileupload
         mode="advanced"
-        [showUploadButton]="false"
-        chooseLabel="Seleccionar documentos"
+        [previewWidth]="0"
+        chooseLabel="Seleccionar documento"
         cancelLabel="Limpiar"
+        uploadLabel="Cargar"
         chooseIcon="pi pi-upload"
-        (onSelect)="onSelect($event)"
-        (onUpload)="upload($event,'pdf')"
-        >
+        (onSelect)="onSelect($event, item)"
+        (onUpload)="upload($event, item)">
     </p-fileupload>
+  </div>
 }
-<div class="custom-form-field md:col-span-6 md:col-start-4">
-        <p-button label="Regresar" [icon]="CustomIcons.ARROW_LEFT_SOLID" (click)="previous()">
-        </p-button>
+<div class="custom-form-field md:col-span-6 md:col-start-4 pt-4">
+        <p-button label="Regresar" [icon]="CustomIcons.ARROW_LEFT_SOLID" (click)="previous()"/>
+        <p-button label="Siguiente" [icon]="CustomIcons.ARROW_RIGHT_SOLID" (click)="next()"/>
+
     </div>

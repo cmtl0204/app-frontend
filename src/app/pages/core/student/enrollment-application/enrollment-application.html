@@ -5,6 +5,7 @@
             <p-step [value]="1">Datos Personales</p-step>
             <p-step [value]="2">Solicitud de Matricula</p-step>
             <p-step [value]="3">Subir Archivos</p-step>
+            <p-step [value]="4">Certificado de inscripción</p-step>
         </p-step-list>
         <p-step-panels>
             <p-step-panel [value]="1">
@@ -26,6 +27,13 @@
                     @if (actualPage() == 3) {
                         <app-enrollment-attachment/>
 
+                    }
+                </ng-template>
+            </p-step-panel>
+            <p-step-panel [value]="4">
+                <ng-template #content let-activateCallback="activateCallback" let-value="value">
+                    @if (actualPage() == 4) {
+                        <app-report-enrollment/>
                     }
                 </ng-template>
             </p-step-panel>

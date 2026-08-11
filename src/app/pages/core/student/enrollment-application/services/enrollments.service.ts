@@ -34,10 +34,10 @@ export class EnrollmentsService {
         );
     }
 
-    sendRegistration(payload: any): Observable<HttpResponseInterface> {
+    sendRegistration(payload: any): Observable<any> {
         const url = `${this.apiUrl}/send-registration`;
 
-        return this.httpClient.post<HttpResponseInterface>(url, payload).pipe(
+        return this.httpClient.post<any>(url, payload).pipe(
             map((response) => response.data)
         );
     }

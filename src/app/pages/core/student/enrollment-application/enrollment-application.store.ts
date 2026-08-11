@@ -1,6 +1,6 @@
 //signals
 
-import {computed, effect, inject, Injectable, signal} from "@angular/core";
+import { computed, effect, inject, Injectable, signal } from "@angular/core";
 import {
     ApplicationData,
     EnrollmentApplicationState,
@@ -8,7 +8,7 @@ import {
     LocationData,
     PersonalData
 } from "./enrollment-application.state";
-import {AuthService} from "@modules/auth/auth.service";
+import { AuthService } from "@modules/auth/auth.service";
 
 const CATALOGUE_STATES = {
     REGISTERED: 'registered',
@@ -18,7 +18,7 @@ const CATALOGUE_STATES = {
 const FORM_STATE_KEY = 'formState';
 const CURRENT_STEP_KEY = 'currentStep';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class EnrollmentAplicationStore {
     private readonly authService = inject(AuthService);
     readonly formState = signal<EnrollmentApplicationState>(this.loadFromStorage());
@@ -133,13 +133,13 @@ export class EnrollmentAplicationStore {
         // 2. Mapear datos de matrícula (Paso 2) y determinar el estado
         if (serverData.enrollment) {
             this.updateSection('application', {
-                student: serverData.enrollment.studentId,
-                academicPeriod: serverData.enrollment.academicPeriodId,
-                career: serverData.enrollment.careerId,
+                // student: serverData.enrollment.student,
+                academicPeriod: serverData.enrollment.academicPeriod,
+                career: serverData.enrollment.career,
                 enrollmentDetails: serverData.enrollment.enrollmentDetails,
-                parallel: serverData.enrollment.parallelId,
-                schoolPeriod: serverData.enrollment.schoolPeriodId,
-                workday: serverData.enrollment.workdayId,
+                parallel: serverData.enrollment.parallel,
+                // schoolPeriod: serverData.enrollment.schoolPeriodId,
+                workday: serverData.enrollment.workday,
             });
             // 3. Controlar el flujo según el estado del Backend
             const currentStateCode = serverData.enrollment.enrollmentStates?.[0]?.state?.code;

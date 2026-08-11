@@ -19,25 +19,48 @@ export class EnrollmentAttachment {
     private readonly fileHttpService = inject(FileHttpService)
     protected readonly CustomIcons = CustomIcons;
     protected catalog: WritableSignal<CatalogueInterface[]> = signal([]);
-    files = signal<File[]>([]);
+    files = signal<Record<string, File | null>>({});
     protected modelId = this.store.student.id
 
-    onSelect(event: FileSelectEvent) {
-        this.files.set(event.files);
-        console.log(this.files());
+    onSelect(event: FileSelectEvent, item: any) {
+        const file = event.files[0];
+
+        this.files.update(current => ({
+            ...current,
+            [item.id]: file
+        }));
+
+        console.log('files:', this.files());
     }
     previous() {
         this.store.setStep(2);
+    }
+    next() {
+        this.store.setStep(4);
     }
     ngOnInit() {
         this.loadCatalogue()
     }
 
     loadCatalogue() {
-        this.catalog.set(this.catalogueService.findByType(CatalogueTypeEnum.enrollmentFileTypeOldStudent))
-        console.log('catalogo files: ', this.catalog)
+        const catalogues = this.catalogueService.findByType(CatalogueTypeEnum.enrollmentFileTypeOldStudent)
+        this.catalog.set(catalogues)
+        console.log('catalogo files: ', this.catalog())
     }
-    upload(payload: any, typeId: any) {
-        this.fileHttpService.upload(payload, this.modelId, typeId).subscribe(response=>console.log(response))
+    upload(event: any, item: any) {
+        const file = this.files()[item.id];
+
+        if (!file) {
+            console.warn('Selecciona un archivo');
+            return;
+        }
+
+        // this.fileHttpService
+        //     .upload(file, this.modelId, item.id)
+        //     .subscribe({
+        //         next: (res) => {
+        //             console.log('OK:', res);
+        //         }
+        //     });
     }
 }

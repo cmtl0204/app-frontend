@@ -71,9 +71,9 @@ export class ApplicationForm {
         effect(() => {
             const academicPeriod = this.formData.academicPeriod().value();
             if (!academicPeriod) return;
-            this.formData.workday().reset(null);
-            this.formData.parallel().reset(null);
-            this.selectedItems.set([])
+            // this.formData.workday().reset(null);
+            // this.formData.parallel().reset(null);
+            // this.selectedItems.set([])
         });
 
         effect(() => {
@@ -123,8 +123,8 @@ export class ApplicationForm {
 
             this.workdays.set(workdays);
 
-            this.formData.workday().reset(null);
-            this.formData.parallel().reset(null);
+            // this.formData.workday().reset(null);
+            // this.formData.parallel().reset(null);
         });
         effect(() => {
             const teacherDistributions = this.teacherDistributions();
@@ -150,7 +150,7 @@ export class ApplicationForm {
 
             this.parallels.set(parallels);
 
-            this.formData.parallel().reset(null);
+            // this.formData.parallel().reset(null);
         });
         effect(() => {
             const teacherDistributions = this.teacherDistributions();

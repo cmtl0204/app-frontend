@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { environment } from '@env/environment';
-import { TeacherDistributionResponse } from '@modules/core/shared/interfaces/teacher-distribution.Interface';
+import { TeacherDistributionResponse } from '@modules/core/shared/interfaces/teacher-distribution.interface';
 
 @Injectable({
     providedIn: 'root',
