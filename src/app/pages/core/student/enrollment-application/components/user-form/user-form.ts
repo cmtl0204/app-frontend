@@ -15,10 +15,11 @@ import { DatePicker } from "primeng/datepicker";
 import { CatalogueService } from '@utils/services';
 import { CatalogueTypeEnum } from '@utils/enums';
 import { CatalogueInterface } from '@utils/interfaces';
+import {Tooltip} from "primeng/tooltip";
 const FORM_STATE_KEY = 'userData'
 @Component({
     selector: 'app-user-form',
-    imports: [FormField, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, DatePicker],
+    imports: [FormField, InputText, FloatLabelModule, MessageModule, AccordionModule, LabelDirective, ErrorMessageDirective, Select, DatePicker, Tooltip],
     templateUrl: './user-form.html',
 })
 export class UserForm {
