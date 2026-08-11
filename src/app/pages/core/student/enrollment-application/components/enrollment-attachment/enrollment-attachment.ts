@@ -1,11 +1,11 @@
-import {Component, inject, signal, WritableSignal} from '@angular/core';
-import {CatalogueTypeEnum} from '@utils/enums';
-import {CatalogueInterface} from '@utils/interfaces';
-import {CatalogueService, CustomMessageService, FileHttpService} from '@utils/services';
-import {FileUpload, FileSelectEvent} from 'primeng/fileupload';
-import {Button} from "primeng/button";
-import {CustomIcons} from '@utils/icons/custom-icons';
-import {EnrollmentAplicationStore} from '../../enrollment-application.store';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { CatalogueTypeEnum } from '@utils/enums';
+import { CatalogueInterface } from '@utils/interfaces';
+import { CatalogueService, CustomMessageService, FileHttpService } from '@utils/services';
+import { FileUpload, FileSelectEvent } from 'primeng/fileupload';
+import { Button } from "primeng/button";
+import { CustomIcons } from '@utils/icons/custom-icons';
+import { EnrollmentAplicationStore } from '../../enrollment-application.store';
 
 @Component({
     selector: 'app-enrollment-attachment',
@@ -29,8 +29,6 @@ export class EnrollmentAttachment {
             ...current,
             [item.id]: file
         }));
-
-        console.log('files:', this.files());
     }
 
     previous() {
@@ -47,10 +45,7 @@ export class EnrollmentAttachment {
 
     loadCatalogue() {
         let catalogues = this.catalogueService.findByType(CatalogueTypeEnum.enrollmentFileTypeOldStudent)
-        console.log('catalogo files: ', catalogues)
         catalogues = catalogues.filter(item => item.required);
-        this.catalog.set(catalogues)
-        console.log('catalogo files: ', this.catalog())
     }
 
     upload(event: any, item: any) {
@@ -61,12 +56,21 @@ export class EnrollmentAttachment {
             return;
         }
 
-        // this.fileHttpService
-        //     .upload(file, this.modelId, item.id)
-        //     .subscribe({
-        //         next: (res) => {
-        //             console.log('OK:', res);
-        //         }
-        //     });
+        const formData = new FormData();
+        formData.append('file', file);
+
+        this.fileHttpService
+            .upload(formData, this.modelId, item.id)
+            .subscribe({
+                next: (res) => {
+                    console.log('OK:', res);
+                },
+                error: () => {
+                    this.customMessageService.showError({
+                        summary: 'Error',
+                        detail: 'No se pudo subir el documento'
+                    });
+                }
+            });
     }
 }

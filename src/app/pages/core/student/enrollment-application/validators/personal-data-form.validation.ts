@@ -108,9 +108,4 @@ export function applyPersonalDataValidation(schema: SchemaPathTree<PersonalData>
     });
 
 
-    // Nacionalidad indígena
-    required(schema.indigenousNationality,{
-        message: 'La NacionalidadIndigena es requrida'
-    });
-
 }

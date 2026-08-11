@@ -51,7 +51,7 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="maritalStatus" label="Estado Civil" [field]="formData.maritalStatus"></label>
-            <p-select class="ml-3" [options]="maritalStatuses()" [formField]="$any(formData.maritalStatus)"
+            <p-select [options]="maritalStatuses()" [formField]="$any(formData.maritalStatus)"
                       name="maritalStatus" optionLabel="name" pTooltip="Estado Civil" filterBy="name" dataKey="id"
                       placeholder="Seleccione Estado Civil...">
             </p-select>
@@ -60,7 +60,7 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="gender" label="Género" [field]="formData.gender"></label>
-            <p-select class="ml-3" [options]="genders()" [formField]="$any(formData.gender)" name="gender"
+            <p-select [options]="genders()" [formField]="$any(formData.gender)" name="gender"
                       optionLabel="name" pTooltip="Género" filterBy="name" dataKey="id"
                       placeholder="Seleccione Género...">
             </p-select>
@@ -69,7 +69,7 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="sex" label="Sexo" [field]="formData.sex"></label>
-            <p-select class="ml-3" [options]="sexes()" [formField]="$any(formData.sex)" name="sex" optionLabel="name"
+            <p-select [options]="sexes()" [formField]="$any(formData.sex)" name="sex" optionLabel="name"
                       pTooltip="Sexo" filterBy="name" dataKey="id" placeholder="Seleccione Sexo...">
             </p-select>
             <small [appErrorMessage]="$any(formData.sex)"></small>
@@ -77,7 +77,7 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="ethnicOrigin" label="Origen Étnico" [field]="formData.ethnicOrigin"></label>
-            <p-select class="ml-3" [options]="ethnicOrigins()" [formField]="$any(formData.ethnicOrigin)"
+            <p-select [options]="ethnicOrigins()" [formField]="$any(formData.ethnicOrigin)"
                       name="ethnicOrigin" optionLabel="name" pTooltip="Origen Étnico" filterBy="name" dataKey="id"
                       placeholder="Seleccione Origen Étnico...">
             </p-select>
@@ -86,7 +86,7 @@
 
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="nationality" label="Nacionalidad" [field]="formData.nationality"></label>
-            <p-select class="ml-3" [options]="nationalities()" [formField]="$any(formData.nationality)"
+            <p-select [options]="nationalities()" [formField]="$any(formData.nationality)"
                       name="nationality" optionLabel="name" pTooltip="Nacionalidad" filterBy="name" dataKey="id"
                       placeholder="Seleccione Nacionalidad...">
             </p-select>

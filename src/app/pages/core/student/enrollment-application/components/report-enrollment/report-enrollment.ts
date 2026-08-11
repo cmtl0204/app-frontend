@@ -14,10 +14,9 @@ export class ReportEnrollment {
     private reportEnrollmentService = inject(ReportEnrollmentService)
     protected readonly CustomIcons = CustomIcons;
     previous() {
-        this.store.setStep(2);
+        this.store.setStep(3);
     }
     protected downloadReport() {
-        console.log('entro a la descarga')
         try {
             const response = this.reportEnrollmentService.reportEnrollmentById(this.store.student.id).subscribe({
                 next: (blob: Blob) => {

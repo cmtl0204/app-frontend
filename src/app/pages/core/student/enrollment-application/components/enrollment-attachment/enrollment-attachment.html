@@ -1,22 +1,76 @@
+<div class="custom-form-card">
 
-@for(item of catalog() ; track item.id){
-   <div class="mb-4">
-    <span>{{ item.name }}</span>
+    <div class="custom-form-section md:col-span-12">
+        <h4>
+            Documentos requeridos
+        </h4>
+    </div>
 
-    <p-fileupload
-        mode="advanced"
-        [previewWidth]="0"
-        chooseLabel="Seleccionar documento"
-        cancelLabel="Limpiar"
-        uploadLabel="Cargar"
-        chooseIcon="pi pi-upload"
-        (onSelect)="onSelect($event, item)"
-        (onUpload)="upload($event, item)">
-    </p-fileupload>
-  </div>
-}
-<div class="custom-form-field md:col-span-6 md:col-start-4 pt-4">
-        <p-button label="Regresar" [icon]="CustomIcons.ARROW_LEFT_SOLID" (click)="previous()"/>
-        <p-button label="Siguiente" [icon]="CustomIcons.ARROW_RIGHT_SOLID" (click)="next()"/>
+    <div class="md:col-span-12 mb-5">
+        <div class="flex items-start gap-4 rounded-lg border border-yellow-200 bg-yellow-50 p-5">
+
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-yellow-100">
+                <i class="pi pi-exclamation-triangle text-yellow-600"></i>
+            </div>
+
+            <div>
+                <h5 class="font-semibold text-yellow-800">
+                    Importante
+                </h5>
+
+                <p class="mt-1 text-sm text-yellow-700">
+                    Verifica que hayas seleccionado y cargado correctamente todos
+                    los documentos requeridos antes de continuar.
+                </p>
+
+                <p class="mt-2 text-sm text-yellow-700">
+                    Una vez completada la carga de archivos, podrás continuar con
+                    el proceso y descargar tu certificado de registro.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="md:col-span-12">
+
+        @for(item of catalog(); track item.id) {
+            <div class="mb-5">
+
+                <span class="mb-2 block font-medium text-gray-700">
+                    {{ item.name }}
+                </span>
+
+                <p-fileupload
+                    mode="advanced"
+                    [customUpload]="true"
+                    [previewWidth]="0"
+                    chooseLabel="Seleccionar documento"
+                    cancelLabel="Limpiar"
+                    uploadLabel="Cargar"
+                    chooseIcon="pi pi-upload"
+                    (onSelect)="onSelect($event, item)"
+                    (uploadHandler)="upload($event, item)">
+                </p-fileupload>
+
+            </div>
+        }
 
     </div>
+
+    <div class="md:col-span-12 flex items-center justify-between pt-4">
+
+        <p-button
+            label="Regresar"
+            [icon]="CustomIcons.ARROW_LEFT_SOLID"
+            (click)="previous()">
+        </p-button>
+
+        <p-button
+            label="Siguiente"
+            [icon]="CustomIcons.ARROW_RIGHT_SOLID"
+            (click)="next()">
+        </p-button>
+
+    </div>
+</div>

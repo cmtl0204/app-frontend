@@ -30,10 +30,6 @@ export class PersonalInformation {
 
     onSubmit() {
         const studentId = this.authService.auth.student.id;
-
-        // 1. Validar que no haya errores en ninguno de los formularios del acordeón
-
-        console.log(this.store.formState());
         if (this.formRegistryService.hasErrors()) {
             this.customMessageService.showFormErrors(this.formRegistryService.errors());
             return;
@@ -41,20 +37,12 @@ export class PersonalInformation {
 
         const formState = this.store.formState();
 
-        // 3. Mapear el estado a los 3 payloads que el backend nuevo espera por separado
-        // const personalInfoPayload = EnrollmentApplicationMapper.toPersonalInformationDto(formState);
-        // const originPayload = EnrollmentApplicationMapper.toOriginPlaceDto(formState);
-        // const residencePayload = EnrollmentApplicationMapper.toResidencePlaceDto(formState);
-
         const {
             personalInfoPayload,
             originPayload,
             residencePayload
         } = EnrollmentApplicationMapper.toPayloadDto(formState);
 
-        console.log(' Payload datos personales:', personalInfoPayload);
-        console.log(' Payload lugar de origen:', originPayload);
-        console.log(' Payload lugar de residencia:', residencePayload);
 
         forkJoin({
             personalInformation: this.studentsService.updatePersonalInformation(

@@ -29,15 +29,12 @@ export class EnrollmentApplication implements OnInit {
     loadData() {
         this.studentService.getCurrentDraft().subscribe({
             next: (response) => {
-                const data = JSON.parse(sessionStorage.getItem('formState')!);
 
                 if (this.formRegistryService.hasErrors() && this.actualPage() == 1) {
                     this.store.hydrateFromServer(response);
 
                 }
-                // if (!data?.userData?.identification) {
-                //     this.store.hydrateFromServer(response);
-                // }
+
             }
         });
     }
