@@ -6,7 +6,10 @@ import { catchError, map } from 'rxjs/operators';
 import { HttpResponseInterface } from '@utils/interfaces';
 import { PersonalInformationDto } from '../enrollment-application.state';
 import { StudentInterface } from '@modules/core/shared/interfaces';
-import { EnrollmentDetailResponse } from '@modules/core/shared/interfaces/enrollment-detail.interface';
+import {
+    EnrollmentDetailInterface,
+    EnrollmentDetailResponse
+} from '@modules/core/shared/interfaces/enrollment-detail.interface';
 
 
 @Injectable({
@@ -49,12 +52,12 @@ export class StudentsService {
             })
         );
     }
-    enrollmentDetail(id: string): Observable<EnrollmentDetailResponse> {
+    enrollmentDetail(id: string): Observable<EnrollmentDetailInterface> {
         const url = `${this.apiUrl}/${id}/enrollment-details`;
 
-        return this.httpClient.get<EnrollmentDetailResponse>(url).pipe(
+        return this.httpClient.get<HttpResponseInterface>(url).pipe(
             map(response => {
-                return response;
+                return response.data;
             })
         );
     }

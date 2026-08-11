@@ -1,11 +1,11 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
-import { CatalogueTypeEnum } from '@utils/enums';
-import { CatalogueInterface } from '@utils/interfaces';
-import { CatalogueService, CustomMessageService, FileHttpService } from '@utils/services';
-import { FileUpload, FileSelectEvent } from 'primeng/fileupload';
-import { Button } from "primeng/button";
-import { CustomIcons } from '@utils/icons/custom-icons';
-import { EnrollmentAplicationStore } from '../../enrollment-application.store';
+import {Component, inject, signal, WritableSignal} from '@angular/core';
+import {CatalogueTypeEnum} from '@utils/enums';
+import {CatalogueInterface} from '@utils/interfaces';
+import {CatalogueService, CustomMessageService, FileHttpService} from '@utils/services';
+import {FileUpload, FileSelectEvent} from 'primeng/fileupload';
+import {Button} from "primeng/button";
+import {CustomIcons} from '@utils/icons/custom-icons';
+import {EnrollmentAplicationStore} from '../../enrollment-application.store';
 
 @Component({
     selector: 'app-enrollment-attachment',
@@ -32,21 +32,27 @@ export class EnrollmentAttachment {
 
         console.log('files:', this.files());
     }
+
     previous() {
         this.store.setStep(2);
     }
+
     next() {
         this.store.setStep(4);
     }
+
     ngOnInit() {
         this.loadCatalogue()
     }
 
     loadCatalogue() {
-        const catalogues = this.catalogueService.findByType(CatalogueTypeEnum.enrollmentFileTypeOldStudent)
+        let catalogues = this.catalogueService.findByType(CatalogueTypeEnum.enrollmentFileTypeOldStudent)
+        console.log('catalogo files: ', catalogues)
+        catalogues = catalogues.filter(item => item.required);
         this.catalog.set(catalogues)
         console.log('catalogo files: ', this.catalog())
     }
+
     upload(event: any, item: any) {
         const file = this.files()[item.id];
 

@@ -30,12 +30,13 @@ export class CatalogueService {
         const catalogues = this.getCatalogues();
 
         return catalogues
-            .filter((c) => c.type === type)
+            .filter((c) => c.type === type && c.enabled)
             .map((c) => ({
                 id: c.id,
                 code: c.code,
                 name: c.name,
-                enabled: c.enabled
+                enabled: c.enabled,
+                required: c.required,
             }));
     }
 
@@ -43,18 +44,19 @@ export class CatalogueService {
         const catalogues = await this.getModelCatalogues();
 
         return catalogues
-            .filter((c) => c.modelId === modelId)
+            .filter((c) => c.modelId === modelId && c.catalogue.enabled)
             .map((mc) => ({
                 id: mc.catalogue.id,
                 code: mc.catalogue.code,
                 name: mc.catalogue.name,
-                enabled: mc.catalogue.enabled
+                enabled: mc.catalogue.enabled,
+                required: mc.catalogue.required
             }));
     }
 
     async findByCode(code: string, type: string): Promise<CatalogueInterface | undefined> {
         const catalogues = await this.getCatalogues();
 
-        return catalogues.find((c) => c.code === code && c.type === type);
+        return catalogues.find((c) => c.enabled && c.code === code && c.type === type);
     }
 }

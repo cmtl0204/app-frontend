@@ -1,25 +1,27 @@
-import { Component, effect, inject, signal } from '@angular/core';
-import { ApplicationData, AvailableSubjectResponse } from '../../enrollment-application.state';
-import { applyApplicationDataValidation, } from '../../validators/application-data-form.validation';
-import { FieldTree, form, FormField } from '@angular/forms/signals';
-import { FormRegistryService } from '@utils/services/form-registry.service';
-import { EnrollmentAplicationStore } from '../../enrollment-application.store';
-import { TableModule } from "primeng/table";
-import { Select } from "primeng/select";
-import { LabelDirective } from "@utils/directives/label.directive";
-import { CustomIcons } from '@utils/icons/custom-icons';
-import { CatalogueInterface } from '@utils/interfaces';
-import { CatalogueService } from '@utils/services';
-import { CatalogueTypeEnum } from '@utils/enums';
-import { EnrollmentsService } from '../../services/enrollments.service';
-import { AuthService } from '@modules/auth/auth.service';
-import { CareerInterface, SchoolPeriodInterface } from '@modules/core/shared/interfaces';
-import { SchoolPeriodService } from '@modules/core/shared/services/school-period.service';
-import { CareerService } from '@modules/core/shared/services/career.service';
-import { Tooltip } from "primeng/tooltip";
-import { TeacherDistributionService } from '../../services/teacher-distribution.service';
-import { StudentsService } from '../../services/students.srvices';
-import { forkJoin } from 'rxjs';
+import {Component, effect, inject, signal} from '@angular/core';
+import {ApplicationData, AvailableSubjectResponse} from '../../enrollment-application.state';
+import {applyApplicationDataValidation,} from '../../validators/application-data-form.validation';
+import {FieldTree, form, FormField} from '@angular/forms/signals';
+import {FormRegistryService} from '@utils/services/form-registry.service';
+import {EnrollmentAplicationStore} from '../../enrollment-application.store';
+import {TableModule} from "primeng/table";
+import {Select} from "primeng/select";
+import {LabelDirective} from "@utils/directives/label.directive";
+import {CustomIcons} from '@utils/icons/custom-icons';
+import {CatalogueInterface} from '@utils/interfaces';
+import {CatalogueService, CustomMessageService} from '@utils/services';
+import {CatalogueTypeEnum} from '@utils/enums';
+import {EnrollmentsService} from '../../services/enrollments.service';
+import {AuthService} from '@modules/auth/auth.service';
+import {CareerInterface, SchoolPeriodInterface} from '@modules/core/shared/interfaces';
+import {SchoolPeriodService} from '@modules/core/shared/services/school-period.service';
+import {CareerService} from '@modules/core/shared/services/career.service';
+import {Tooltip} from "primeng/tooltip";
+import {TeacherDistributionService} from '../../services/teacher-distribution.service';
+import {StudentsService} from '../../services/students.srvices';
+import {forkJoin} from 'rxjs';
+import {EnrollmentDetailInterface} from "@modules/core/shared/interfaces/enrollment-detail.interface";
+import {TeacherDistributionInterface} from "@modules/core/shared/interfaces/teacher-distribution.interface";
 
 const FORM_STATE_KEY = "application"
 
@@ -34,14 +36,15 @@ export class ApplicationForm {
     private readonly authService = inject(AuthService)
     protected readonly catalogueService = inject(CatalogueService);
     protected readonly careerService = inject(CareerService);
+    protected readonly customMessageService = inject(CustomMessageService);
     private readonly enrollmentService = inject(EnrollmentsService);
     private readonly studentService = inject(StudentsService);
     private readonly teacherDistributionService = inject(TeacherDistributionService)
 
     protected readonly CustomIcons = CustomIcons;
 
-    protected teacherDistributions = signal<any[]>([]);
-    protected enrollmentsDetails = signal<any[]>([]);
+    protected teacherDistributions = signal<TeacherDistributionInterface[]>([]);
+    protected enrollmentsDetail = signal<EnrollmentDetailInterface | null>(null);
 
     protected academicPeriods = signal<CatalogueInterface[]>([]);
     protected schoolPeriods = signal<SchoolPeriodInterface[]>([]);
@@ -78,32 +81,6 @@ export class ApplicationForm {
 
         effect(() => {
             const teacherDistributions = this.teacherDistributions();
-            const enrollmentsDetails = this.enrollmentsDetails();
-
-            if (!teacherDistributions.length || !enrollmentsDetails.length) {
-                return;
-            }
-
-            const lastEnrollment = enrollmentsDetails.at(0)!;//seria -1 por pruebas esta en 0
-            console.log('lastEnrollment', lastEnrollment);
-            console.log('lastEnrollment.subject', lastEnrollment?.subject);
-            console.log('lastEnrollment.subject.academicPeriod', lastEnrollment?.subject?.academicPeriod);
-            console.log('teacherDistributions', teacherDistributions);
-
-
-            const academicPeriod = teacherDistributions.find(
-                item =>
-                    Number(item.subject.academicPeriod.code) ===
-                    Number(lastEnrollment.subject.academicPeriod.code) + 1
-            ).subject.academicPeriod;
-
-            if(!academicPeriod)return;
-
-            this.academicPeriods.set([academicPeriod]);
-            this.formData.academicPeriod().reset(academicPeriod);
-        });
-        effect(() => {
-            const teacherDistributions = this.teacherDistributions();
             const academicPeriod = this.formData.academicPeriod().value();
 
             if (!academicPeriod) {
@@ -126,6 +103,7 @@ export class ApplicationForm {
             // this.formData.workday().reset(null);
             // this.formData.parallel().reset(null);
         });
+
         effect(() => {
             const teacherDistributions = this.teacherDistributions();
             const academicPeriod = this.formData.academicPeriod().value();
@@ -150,8 +128,9 @@ export class ApplicationForm {
 
             this.parallels.set(parallels);
 
-            // this.formData.parallel().reset(null);
+            this.formData.parallel().reset(null);
         });
+
         effect(() => {
             const teacherDistributions = this.teacherDistributions();
             const academicPeriod = this.formData.academicPeriod().value();
@@ -220,20 +199,41 @@ export class ApplicationForm {
         }
 
         forkJoin({
-            enrollments: this.studentService.enrollmentDetail(studentId),
-            distributions: this.teacherDistributionService.getTecherDistribution(schoolPeriodId),
+            lastEnrollmentDetail: this.studentService.enrollmentDetail(studentId),
+            teacherDistributions: this.teacherDistributionService.getTeacherDistribution(schoolPeriodId),
         }).subscribe({
-            next: ({ enrollments, distributions }) => {
-                console.log('enrollments:', enrollments)
-                console.log('distribution:', distributions)
-                this.enrollmentsDetails.set(enrollments.data);
-                this.teacherDistributions.set(distributions.data);
+            next: ({lastEnrollmentDetail, teacherDistributions}) => {
+                console.log('enrollments:', lastEnrollmentDetail)
+                console.log('distribution:', teacherDistributions)
+                this.enrollmentsDetail.set(lastEnrollmentDetail);
+
+                if (!teacherDistributions.length) {
+                    this.customMessageService.showError({
+                        summary: 'No existen ',
+                        detail: 'Falta asignar'
+                    })
+                }
+                const availableTeacherDistributions = teacherDistributions.filter(
+                    item =>
+                        Number(item.subject.academicPeriod.code) ===
+                        Number(lastEnrollmentDetail.subject.academicPeriod.code) + 1
+                );
+
+                this.teacherDistributions.set(availableTeacherDistributions);
+
+                const academicPeriod = (availableTeacherDistributions.map(item => {
+                    return item.subject.academicPeriod;
+                }))[0];
+
+                console.log(academicPeriod)
+                this.academicPeriods.set([academicPeriod]);
+                this.formData.academicPeriod().reset(academicPeriod);
             },
         });
 
     }
+
     private loadAllCatalogues() {
-        this.academicPeriods.set(this.catalogueService.findByType(CatalogueTypeEnum.academicPeriod));
         this.workdays.set(this.catalogueService.findByType(CatalogueTypeEnum.enrollmentsWorkday));
         this.parallels.set(this.catalogueService.findByType(CatalogueTypeEnum.parallel));
         this.schoolPeriods.set([this.authService.schoolPeriodOpen]);
@@ -244,5 +244,4 @@ export class ApplicationForm {
             }
         });
     }
-
 }
