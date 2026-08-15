@@ -46,6 +46,7 @@ export class EnrollmentAttachment {
     loadCatalogue() {
         let catalogues = this.catalogueService.findByType(CatalogueTypeEnum.enrollmentFileTypeOldStudent)
         catalogues = catalogues.filter(item => item.required);
+        this.catalog.set(catalogues)
     }
 
     upload(event: any, item: any) {
