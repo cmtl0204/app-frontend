@@ -70,13 +70,10 @@ export class ApplicationForm {
             }));
 
         });
-        //Reseteo en cascada si cambia algo arriba
+        
         effect(() => {
             const academicPeriod = this.formData.academicPeriod().value();
             if (!academicPeriod) return;
-            // this.formData.workday().reset(null);
-            // this.formData.parallel().reset(null);
-            // this.selectedItems.set([])
         });
 
         effect(() => {
@@ -164,7 +161,6 @@ export class ApplicationForm {
     }
 
     ngOnInit(): void {
-        console.log('ngOnInit')
         this.formRegistryService.register(
             'Solicitud de Matricula',
             FORM_STATE_KEY,
@@ -203,8 +199,6 @@ export class ApplicationForm {
             teacherDistributions: this.teacherDistributionService.getTeacherDistribution(schoolPeriodId),
         }).subscribe({
             next: ({lastEnrollmentDetail, teacherDistributions}) => {
-                console.log('enrollments:', lastEnrollmentDetail)
-                console.log('distribution:', teacherDistributions)
                 this.enrollmentsDetail.set(lastEnrollmentDetail);
 
                 if (!teacherDistributions.length) {
@@ -224,8 +218,6 @@ export class ApplicationForm {
                 const academicPeriod = (availableTeacherDistributions.map(item => {
                     return item.subject.academicPeriod;
                 }))[0];
-
-                console.log(academicPeriod)
                 this.academicPeriods.set([academicPeriod]);
                 this.formData.academicPeriod().reset(academicPeriod);
             },

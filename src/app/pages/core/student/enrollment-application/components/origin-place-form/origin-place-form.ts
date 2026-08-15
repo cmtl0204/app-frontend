@@ -26,14 +26,11 @@ const FORM_STATE_KEY = "originPlace"
 export class OriginPlaceForm {
     private readonly formRegistryService = inject(FormRegistryService);
     private readonly store = inject(EnrollmentAplicationStore);
-    //el catalogo para location debe se dpa , para qeu hat provinces , canton y parish
     private readonly catalogueService = inject(CatalogueService);
     private readonly dpaService = inject(DpaService);
     protected readonly form$: WritableSignal<LocationData> = signal(this.store.originPlace());
     protected readonly formData: FieldTree<LocationData> = this.buildForm;
 
-    // Catálogo raíz (sin padre)
-    //traer locaciones de dpa ya no de catalogue ademas como se maneja country si solo empieza de provinces
     protected readonly countries = computed(() => {
         return this.catalogueService.findByType(CatalogueTypeEnum.country)
     });
@@ -81,7 +78,6 @@ export class OriginPlaceForm {
     }
 
     protected readonly selectedCenter = computed<MapCoords | null>(() => {
-        console.log('selectedCenter');
 
         const selected = this.formData.parish().value()
 

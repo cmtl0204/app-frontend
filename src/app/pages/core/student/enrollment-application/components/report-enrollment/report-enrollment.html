@@ -1,11 +1,47 @@
 <div class="custom-form-card">
+
     <div class="custom-form-section md:col-span-12">
         <h4>
+            <i class="pi pi-file"></i>
             Certificado de Registro
         </h4>
     </div>
-    <div class="custom-form-field md:col-span-6 md:col-start-4">
-        <p-button label="Descargar" [icon]="CustomIcons.DOWNLOAD_SOLID" (click)="downloadReport()" />
-        <p-button label="Regresar" [icon]="CustomIcons.ARROW_LEFT_SOLID" (click)="previous()" />
+
+    <div class="md:col-span-12">
+        <div class="flex items-start gap-4 rounded-lg border border-green-200 bg-green-50 p-5">
+
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-green-100">
+                <i class="pi pi-check text-green-600"></i>
+            </div>
+
+            <div>
+                <h5 class="font-semibold text-green-800">
+                    Registro completado correctamente
+                </h5>
+
+                <p class="mt-1 text-sm text-green-700">
+                    Tu solicitud de matrícula ha sido registrada correctamente.
+                    Puedes descargar tu certificado de registro a continuación.
+                </p>
+            </div>
+
+        </div>
     </div>
+
+    <div class="md:col-span-12 flex justify-center py-6">
+        <p-button
+            label="Descargar certificado"
+            [icon]="CustomIcons.DOWNLOAD_SOLID"
+            (click)="downloadReport()">
+        </p-button>
+    </div>
+
+    <div class="md:col-span-12">
+        <p-button
+            label="Regresar"
+            [icon]="CustomIcons.ARROW_LEFT_SOLID"
+            (click)="previous()">
+        </p-button>
+    </div>
+
 </div>

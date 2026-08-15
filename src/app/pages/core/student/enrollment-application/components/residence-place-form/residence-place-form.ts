@@ -77,8 +77,6 @@ export class ResidencePlaceForm {
 
     protected readonly selectedCenter = computed<MapCoords | null>(() => {
         const selected = this.formData.parish().value()
-
-        console.log('selectedCenter')
         if (!selected || !selected.latitude || !selected.longitude) {
             return null;
         }

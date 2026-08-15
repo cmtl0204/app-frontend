@@ -8,7 +8,6 @@ import { PersonalInformationDto } from '../enrollment-application.state';
 import { StudentInterface } from '@modules/core/shared/interfaces';
 import {
     EnrollmentDetailInterface,
-    EnrollmentDetailResponse
 } from '@modules/core/shared/interfaces/enrollment-detail.interface';
 
 
@@ -101,21 +100,5 @@ export class StudentsService {
             })
         );
     }
-
-
-    // Preguntar
-    /* updateCroquis(id: string, payload: UpdateStudentDto): Observable<StudentModel> {
-       const url = `${this.apiUrl}/${id}/croquis`;
-
-       this.coreService.isProcessing = true;
-       return this.httpClient.patch<HttpResponseInterface>(url, payload).pipe(
-         map(response => {
-           this.coreService.isProcessing = false;
-           this.messageService.success(response).then();
-           return response.data;
-         })
-       );
-     }*/
-
 
 }

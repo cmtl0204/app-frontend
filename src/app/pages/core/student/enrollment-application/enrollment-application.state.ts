@@ -9,7 +9,6 @@ export interface EnrollmentApplicationState {
     originPlace: LocationData,
     residencePlace: LocationData,
     application: ApplicationData,
-    files: FileData,
 }
 export interface PersonalInformationDto {
     userData: UserDataDto,
@@ -134,17 +133,6 @@ export interface LocationData {
     secondaryStreet: string
 }
 
-export interface FileData {
-    id: string;
-    name: string;
-    fullName: string;
-    fullPath: string;
-    description: string;
-    extension: string;
-    directory: string;
-    originalName: string;
-    type: CatalogueInterface | null;
-}
 
 export interface ApplicationData {
     student: StudentInterface | null,
@@ -177,56 +165,7 @@ export interface UserData {
     phone: string;
     sex: CatalogueInterface | null;
 }
-// export interface StudentInterface {
-//     id: string;
-//     createAt: string;
-//     updateAt: string;
-//     deleteAt: string;
-//     isVisible: boolean;
-//     informationStudent: PersonalData | null;
-//     user: UserData | null;
 
-// }
-
-const initialFile: FileData = {
-    id: '',
-    name: '',
-    fullName: '',
-    fullPath: '',
-    description: '',
-    extension: '',
-    directory: '',
-    originalName: '',
-    type: null
-};
-
-// const initialStudent: StudentInterface = {
-//     id: '',
-//     createAt: '',
-//     updateAt: '',
-//     deleteAt: '',
-//     isVisible: false,
-//     informationStudent: null,
-//     user: null
-
-// }
-
-const initialLocation: LocationInterface = {
-    id: '',
-    parent: null,
-    parentId: '',
-    alpha2Code: '',
-    alpha3Code: '',
-    callingCode: '',
-    code: '',
-    flag: '',
-    latitude: 0,
-    longitude: 0,
-    level: 0,
-    name: '',
-    zone: ''
-};
-const objectBase = { id: "", name: "" }
 export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentApplicationState = {
     userData: {
         birthdate: '',
@@ -305,17 +244,6 @@ export const INITIAL_ENROLLMENT_APPLICATION_STATE: EnrollmentApplicationState = 
         schoolPeriod: null,
         workday: null,
     },
-    files: {
-        id: '',
-        name: '',
-        fullName: '',
-        fullPath: '',
-        description: '',
-        extension: '',
-        directory: '',
-        originalName: '',
-        type: null
-    }
 }
 //dto
 export interface GetAvailableSubjectsDto {

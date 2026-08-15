@@ -2,11 +2,8 @@
 
 import { computed, effect, inject, Injectable, signal } from "@angular/core";
 import {
-    ApplicationData,
     EnrollmentApplicationState,
     INITIAL_ENROLLMENT_APPLICATION_STATE,
-    LocationData,
-    PersonalData
 } from "./enrollment-application.state";
 import { AuthService } from "@modules/auth/auth.service";
 
@@ -69,11 +66,8 @@ export class EnrollmentAplicationStore {
 
     hydrateFromServer(serverData: any) {
         if (!serverData) return;
-        console.log('data store1: ', serverData)
-        // 1. Mapear datos personales al estado (Paso 1)
         if (serverData.studentInfo) {
             this.updateSection('personalData', {
-                // Corregido: career en lugar de carrer
                 career: serverData.studentInfo.informationStudent?.career,
                 semester: serverData.studentInfo.informationStudent?.academicPeriod,
                 contactEmergencyKinship: serverData.studentInfo.informationStudent?.contactEmergencyKinship,
@@ -102,7 +96,6 @@ export class EnrollmentAplicationStore {
                 indigenousNationality: serverData.studentInfo.informationStudent?.indigenousNationality,
             });
 
-            // Corregido: Agregada la propiedad .user antes de los campos
             this.updateSection('userData', {
                 birthdate: serverData.studentInfo.user?.birthdate,
                 cellPhone: serverData.studentInfo.user?.cellPhone,
@@ -130,18 +123,14 @@ export class EnrollmentAplicationStore {
             }
         }
         console.log('data store: ', serverData)
-        // 2. Mapear datos de matrícula (Paso 2) y determinar el estado
         if (serverData.enrollment) {
             this.updateSection('application', {
-                // student: serverData.enrollment.student,
                 academicPeriod: serverData.enrollment.academicPeriod,
                 career: serverData.enrollment.career,
                 enrollmentDetails: serverData.enrollment.enrollmentDetails,
                 parallel: serverData.enrollment.parallel,
-                // schoolPeriod: serverData.enrollment.schoolPeriodId,
                 workday: serverData.enrollment.workday,
             });
-            // 3. Controlar el flujo según el estado del Backend
             const currentStateCode = serverData.enrollment.enrollmentStates?.[0]?.state?.code;
 
             console.log('estado enrolment: ', currentStateCode)
