@@ -14,7 +14,7 @@ FROM nginx:alpine
 
 COPY devops/nginx.conf /etc/nginx/conf.d/default.conf
 
-COPY --from=build /app/dist/app/browser /usr/share/nginx/html
+COPY --from=build /app/dist/app-frontend/browser /usr/share/nginx/html
 
 EXPOSE 80
 
