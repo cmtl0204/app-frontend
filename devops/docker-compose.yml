@@ -1,0 +1,13 @@
+services:
+    app-frontend:
+        build:
+            context: ..
+            dockerfile: devops/Dockerfile
+        container_name: app-frontend
+        restart: unless-stopped
+        networks:
+            - npm_network
+
+networks:
+    npm_network:
+        external: true
