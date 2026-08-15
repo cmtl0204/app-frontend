@@ -8,7 +8,7 @@ RUN npm ci --verbose
 
 COPY . .
 
-RUN npm run build:qa
+RUN npm run build:prod
 
 FROM nginx:alpine
 
