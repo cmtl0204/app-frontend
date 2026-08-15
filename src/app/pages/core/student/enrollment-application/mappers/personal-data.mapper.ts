@@ -55,7 +55,7 @@ export class EnrollmentApplicationMapper {
                     subject: {
                         id: detail.id,
                     },
-                })) ?? [],
+                })) ?? null,
         };
     }
 

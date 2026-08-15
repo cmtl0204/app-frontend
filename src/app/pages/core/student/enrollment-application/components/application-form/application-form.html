@@ -77,7 +77,7 @@
         </div>
 
         <div class="custom-form-section md:col-span-12">
-            <h3>Total Asignaturas: {{ selectedItems()?.length ?? 0 }}</h3>
+            <h3>Total Asignaturas: {{ formData.enrollmentDetails().value()?.length ?? 0 }}</h3>
         </div>
     </form>
 </div>
@@ -86,9 +86,10 @@
     #dt
     stripedRows
     [value]="items()"
+    dataKey="id"
+    selectionMode="multiple"
     [tableStyle]="{ 'min-width': '50rem' }"
-    [selection]="selectedItems()"
-    (selectionChange)="onSelectionChange($event)">
+    [(selection)]="formData.enrollmentDetails().value">
     <ng-template #caption>
         <div class="custom-form-grid">
             <div class="custom-form-grid md:grid-cols-12">

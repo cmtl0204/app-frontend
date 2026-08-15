@@ -14,7 +14,6 @@ import {CatalogueTypeEnum} from '@utils/enums';
 import {EnrollmentsService} from '../../services/enrollments.service';
 import {AuthService} from '@modules/auth/auth.service';
 import {CareerInterface, SchoolPeriodInterface} from '@modules/core/shared/interfaces';
-import {SchoolPeriodService} from '@modules/core/shared/services/school-period.service';
 import {CareerService} from '@modules/core/shared/services/career.service';
 import {Tooltip} from "primeng/tooltip";
 import {TeacherDistributionService} from '../../services/teacher-distribution.service';
@@ -37,7 +36,6 @@ export class ApplicationForm {
     protected readonly catalogueService = inject(CatalogueService);
     protected readonly careerService = inject(CareerService);
     protected readonly customMessageService = inject(CustomMessageService);
-    private readonly enrollmentService = inject(EnrollmentsService);
     private readonly studentService = inject(StudentsService);
     private readonly teacherDistributionService = inject(TeacherDistributionService)
 
@@ -53,7 +51,6 @@ export class ApplicationForm {
     protected careers = signal<CareerInterface[]>([]);
 
     protected items = signal<AvailableSubjectResponse[]>([]);
-    protected selectedItems = signal<any[] | null>(null);
 
     protected form$ = signal<ApplicationData>(this.store.application());
     protected formData = this.buildForm();
@@ -61,19 +58,6 @@ export class ApplicationForm {
     constructor() {
         effect(() => {
             this.store.updateSection(FORM_STATE_KEY, this.form$());
-        });
-
-        effect(() => {
-            this.form$.update(form => ({
-                ...form,
-                enrollmentDetails: this.selectedItems()?.length ? this.selectedItems() : null
-            }));
-
-        });
-        
-        effect(() => {
-            const academicPeriod = this.formData.academicPeriod().value();
-            if (!academicPeriod) return;
         });
 
         effect(() => {
@@ -96,7 +80,6 @@ export class ApplicationForm {
             ];
 
             this.workdays.set(workdays);
-
             // this.formData.workday().reset(null);
             // this.formData.parallel().reset(null);
         });
@@ -124,8 +107,7 @@ export class ApplicationForm {
             ];
 
             this.parallels.set(parallels);
-
-            this.formData.parallel().reset(null);
+            // this.formData.parallel().reset(null);
         });
 
         effect(() => {
@@ -171,19 +153,13 @@ export class ApplicationForm {
         this.formData.student().reset(this.store.student);
         this.formData.schoolPeriod().reset(this.store.schoolPeriod);
 
-        const data = this.store.application();
 
-        this.selectedItems.set(data.enrollmentDetails?.length ? [...data.enrollmentDetails] : null);
         this.loadAllCatalogues();
         this.findInitialData();
     }
 
     ngOnDestroy(): void {
         this.formRegistryService.unregister(FORM_STATE_KEY);
-    }
-
-    onSelectionChange(selected: any[]) {
-        this.selectedItems.set(selected);
     }
 
     private findInitialData() {

@@ -6,6 +6,7 @@ import {
     INITIAL_ENROLLMENT_APPLICATION_STATE,
 } from "./enrollment-application.state";
 import { AuthService } from "@modules/auth/auth.service";
+import { EnrollmentDetailInterface } from "@modules/core/shared/interfaces/enrollment-detail.interface";
 
 const CATALOGUE_STATES = {
     REGISTERED: 'registered',
@@ -122,12 +123,13 @@ export class EnrollmentAplicationStore {
                 this.updateSection('residencePlace', serverData.location.residence);
             }
         }
-        console.log('data store: ', serverData)
         if (serverData.enrollment) {
             this.updateSection('application', {
                 academicPeriod: serverData.enrollment.academicPeriod,
                 career: serverData.enrollment.career,
-                enrollmentDetails: serverData.enrollment.enrollmentDetails,
+                enrollmentDetails: serverData.enrollment.enrollmentDetails.map(
+                    (detail:EnrollmentDetailInterface) => detail.subject
+                ),
                 parallel: serverData.enrollment.parallel,
                 workday: serverData.enrollment.workday,
             });
