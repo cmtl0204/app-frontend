@@ -7,17 +7,21 @@ import {
 import { LocationData } from '../enrollment-application.state';
 
 export function applyOriginPlaceValidation(schema: SchemaPathTree<LocationData>): void {
+    const countryValue = ({ valueOf }: any) => {
+        const country = valueOf(schema.country)
+        return country.name == 'Ecuador'
+    }
     // País
     required(schema.country, { message: 'El país es requerido' });
 
     // Provincia
-    required(schema.province, { message: 'La provincia es requerida' });
+    required(schema.province, { message: 'La provincia es requerida', when: countryValue });
 
     // Cantón
-    required(schema.canton, { message: 'El cantón es requerido' });
+    required(schema.canton, { message: 'El cantón es requerido', when: countryValue });
 
     // Parroquia
-    required(schema.parish, { message: 'La parroquia es requerida' });
+    required(schema.parish, { message: 'La parroquia es requerida', when: countryValue });
 
     // Calle principal
     required(schema.mainStreet, { message: 'La calle principal es requerida' });

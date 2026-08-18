@@ -2,7 +2,7 @@
     <form class="custom-form-grid md:grid-cols-12">
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="country" label="País" [field]="formData.country"></label>
-            <p-select  [options]="countries()" [formField]="$any(formData.country)" name="country"
+            <p-select  [options]="countries()" [formField]="$any(formData.country)" name="country" dataKey="id"
                 optionLabel="name" [filter]="true" pTooltip="Paises" filterBy="name"
                 placeholder="Seleccione su país..."> </p-select>
             <small [appErrorMessage]="$any(formData.country)"></small>
@@ -11,7 +11,7 @@
         @if (formData.country().value()?.name == "Ecuador") {
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="province" label="Provincia" [field]="formData.province"></label>
-            <p-select  [options]="provinces()" [formField]="$any(formData.province)" name="province"
+            <p-select  [options]="provinces()" [formField]="$any(formData.province)" name="province" dataKey="id"
                 optionLabel="name" [filter]="true" pTooltip="Provincias" filterBy="name"
                 placeholder="Seleccione su provincia..."> </p-select>
             <small [appErrorMessage]="$any(formData.province)"></small>
@@ -20,14 +20,14 @@
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="canton" label="Cantón" [field]="formData.canton"></label>
             <p-select  [options]="cantons()" [formField]="$any(formData.canton)" name="canton"
-                optionLabel="name" [filter]="true" pTooltip="Cantones" filterBy="name"
+                optionLabel="name" [filter]="true" pTooltip="Cantones" filterBy="name" dataKey="id"
                 placeholder="Seleccione su cantón..."> </p-select>
             <small [appErrorMessage]="$any(formData.canton)"></small>
         </div>
         } @if (formData.canton().value()) {
         <div class="custom-form-field md:col-span-6">
             <label appLabel for="parish" label="Parroquia" [field]="formData.parish"></label>
-            <p-select [options]="parishes()" [formField]="$any(formData.parish)" name="parish"
+            <p-select [options]="parishes()" [formField]="$any(formData.parish)" name="parish" dataKey="id"
                 optionLabel="name" [filter]="true" pTooltip="Parroquias" filterBy="name"
                 placeholder="Seleccione su parroquia..."> </p-select>
             <small [appErrorMessage]="$any(formData.parish)"></small>

@@ -59,6 +59,14 @@ export class OriginPlaceForm {
         effect(() => {
             this.store.updateSection(FORM_STATE_KEY, this.form$());
         })
+
+        effect(()=>{
+            if(!(this.formData.country().value()?.name == "Ecuador")){
+                this.formData.province().reset(null);
+                this.formData.canton().reset(null);
+                this.formData.parish().reset(null);
+            }
+        })
     }
 
     async ngOnInit() {
