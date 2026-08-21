@@ -9,6 +9,7 @@ import { LocationData } from '../enrollment-application.state';
 export function applyOriginPlaceValidation(schema: SchemaPathTree<LocationData>): void {
     const countryValue = ({ valueOf }: any) => {
         const country = valueOf(schema.country)
+        if(!country)return false;
         return country.name == 'Ecuador'
     }
     // País
