@@ -149,3 +149,14 @@ export enum SeverityButtonActionEnum {
   DOWNLOAD = 'info',
 }
 
+
+// ── Enrollment module additions ───────────────────────────────────────────────
+export const BreadcrumbEnum = {
+    ENROLLMENTS:        'Matrículas',
+    ENROLLMENT_DETAILS: 'Asignaturas',
+    FORM:               'Formulario',
+};
+
+export enum RoutesEnum {
+    NEW = 'new',
+}
