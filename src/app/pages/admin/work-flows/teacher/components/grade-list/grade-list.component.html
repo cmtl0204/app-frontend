@@ -1,0 +1,114 @@
+<div class="card p-4">
+    <div class="mb-4 flex justify-between items-center">
+        <h5 class="m-0 text-xl font-bold text-900">Listado de Estudiantes</h5>
+    </div>
+
+    <p-table 
+        [value]="students()" 
+        [loading]="isLoading()"
+        responsiveLayout="scroll"
+        styleClass="p-datatable-striped p-datatable-gridlines p-datatable-sm">
+        
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Estudiante</th>
+                <th>Cédula</th>
+                <th class="text-center">Parcial 1</th>
+                <th class="text-center">Parcial 2</th>
+                <th class="text-center">Asistencia</th>
+                <th class="text-center">Nota Final</th>
+                <th class="text-center">Estado</th>
+                <th class="text-center">Acciones</th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-detail>
+            <tr>
+                <!-- Estudiante -->
+                <td class="font-bold">
+                    {{ detail.enrollment?.student?.user?.lastname }} 
+                    {{ detail.enrollment?.student?.user?.name }}
+                </td>
+
+                <!-- Cédula -->
+                <td>
+                    {{ detail.enrollment?.student?.user?.identification ?? '-' }}
+                </td>
+
+                <!-- Parcial 1 -->
+                <td class="text-center font-semibold text-blue-600">
+                    {{ getGradeByPartial(detail, '1') }}
+                </td>
+
+                <!-- Parcial 2 -->
+                <td class="text-center font-semibold text-blue-600">
+                    {{ getGradeByPartial(detail, '2') }}
+                </td>
+
+                <!-- Asistencia -->
+                <td class="text-center">
+                    <span class="p-tag p-tag-secondary">
+                        {{ detail.finalAttendance ?? 0 }}%
+                    </span>
+                </td>
+
+                <!-- Nota Final -->
+                <td class="text-center font-bold text-green-600">
+                    {{ detail.finalGrade ?? '-' }}
+                </td>
+
+                <!-- Estado -->
+                <td class="text-center">
+                    @let state = detail.academicState?.name ?? 'PENDIENTE';
+                    <span class="p-tag" [ngClass]="{
+                        'p-tag-success': state === 'APROBADO' || state === 'a',
+                        'p-tag-danger': state === 'REPROBADO' || state === 'r',
+                        'p-tag-warning': state === 'SUPLETORIO',
+                        'p-tag-info': state === 'PENDIENTE'
+                    }">
+                        {{ state }}
+                    </span>
+                </td>
+
+                <!-- Acciones -->
+                <td class="text-center">
+                    <p-button
+                        [icon]="CustomIcons.PENCIL_SOLID"
+                        severity="info"
+                        [rounded]="true"
+                        [text]="true"
+                        pTooltip="Ingresar Calificaciones"
+                        tooltipPosition="top"
+                        (onClick)="openGradeModal(detail)">
+                    </p-button>
+                </td>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8" class="text-center p-4 text-500">
+                    No se encontraron estudiantes registrados o el servidor no respondió.
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog
+    header="Gestión de Calificaciones"
+    [(visible)]="isModalGradesOpen"
+    [modal]="true"
+    [style]="{ width: '50vw' }"
+    [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"
+    [draggable]="false"
+    [resizable]="false"
+    (onHide)="handleModalClose(false)">
+    @if (selectedStudent()) {
+        <app-grade-container
+            [enrollmentDetail]="selectedStudent()!"
+            [teacherDistributionId]="currentDistributionId()!"
+            (isModalGrades)="handleModalClose($event)">
+        </app-grade-container>
+    }
+</p-dialog>

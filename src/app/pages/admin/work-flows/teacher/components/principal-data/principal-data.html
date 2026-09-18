@@ -1,0 +1,86 @@
+<div style="padding: 1rem; width: 100%;">
+    <!-- Encabezado -->
+    <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid #e5e7eb;">
+        <i class="pi pi-pencil" style="font-size: 1.25rem; color: #2563eb;"></i>
+        <div>
+            
+            <span style="font-size: 0.85rem; color: #6b7280;">Ingresa o actualiza las notas y el porcentaje de asistencia</span>
+        </div>
+    </div>
+
+    <!-- Contenedor en 3 Columnas Horizontales Forzado -->
+    <div style="display: flex; flex-wrap: wrap; gap: 1rem; width: 100%;">
+
+        <!-- Parcial 1 -->
+        <div style="flex: 1 1 calc(33.333% - 1rem); min-width: 140px; display: flex; flex-direction: column; gap: 0.5rem;">
+            <label
+                appLabel for="grade1"
+                label="Parcial 1"
+                [field]="$any(formData.grade1)"
+                style="font-weight: 600; font-size: 0.875rem; color: #374151;">
+            </label>
+
+            <p-inputnumber
+                id="grade1"
+                [formField]="$any(formData.grade1)"
+                [minFractionDigits]="2"
+                [maxFractionDigits]="2"
+                [min]="0"
+                [max]="10"
+                placeholder="0.00"
+                styleClass="w-full"
+                inputStyleClass="w-full text-center font-bold">
+            </p-inputnumber>
+
+            <small [appErrorMessage]="$any(formData.grade1)"></small>
+        </div>
+
+        <!-- Parcial 2 -->
+        <div style="flex: 1 1 calc(33.333% - 1rem); min-width: 140px; display: flex; flex-direction: column; gap: 0.5rem;">
+            <label
+                appLabel for="grade2"
+                label="Parcial 2"
+                [field]="$any(formData.grade2)"
+                style="font-weight: 600; font-size: 0.875rem; color: #374151;">
+            </label>
+
+            <p-inputnumber
+                id="grade2"
+                [formField]="$any(formData.grade2)"
+                [minFractionDigits]="2"
+                [maxFractionDigits]="2"
+                [min]="0"
+                [max]="10"
+                placeholder="0.00"
+                styleClass="w-full"
+                inputStyleClass="w-full text-center font-bold">
+            </p-inputnumber>
+
+            <small [appErrorMessage]="$any(formData.grade2)"></small>
+        </div>
+
+        <!-- Asistencia -->
+        <div style="flex: 1 1 calc(33.333% - 1rem); min-width: 140px; display: flex; flex-direction: column; gap: 0.5rem;">
+            <label
+                appLabel for="attendance"
+                label="Asistencia"
+                [field]="$any(formData.attendance)"
+                style="font-weight: 600; font-size: 0.875rem; color: #374151;">
+            </label>
+
+            <p-inputnumber
+                id="attendance"
+                [formField]="$any(formData.attendance)"
+                suffix="%"
+                [min]="0"
+                [max]="100"
+                placeholder="0%"
+                styleClass="w-full"
+                inputStyleClass="w-full text-center font-bold">
+            </p-inputnumber>
+
+            <small [appErrorMessage]="$any(formData.attendance)"></small>
+        </div>
+
+    </div>
+</div>
