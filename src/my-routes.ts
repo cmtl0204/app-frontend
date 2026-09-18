@@ -260,3 +260,20 @@ export const MY_ROUTES = {
         absolute: '/main/dashboards'
     }
 };
+
+// Secretary routes — added by enrollment module
+export const SECRETARY_ROUTES = {
+    enrollment: {
+        base: 'enrollments',
+        absolute: '/main/core/secretary/enrollments',
+        detail: {
+            base: 'enrollment-details',
+            absoluteFn: (enrollmentId: string) =>
+                `/main/core/secretary/enrollments/${enrollmentId}/enrollment-details`,
+        },
+        form: {
+            absoluteFn: (enrollmentId: string, id: string = 'new') =>
+                `/main/core/secretary/enrollments/${enrollmentId}/enrollment-details/${id}`,
+        }
+    }
+};

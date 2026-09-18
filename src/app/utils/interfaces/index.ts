@@ -5,3 +5,4 @@ export * from './col.interface';
 export * from './dpa.interface';
 export * from './http-response.interface';
 export * from './map.interface';
+export * from './core-models.interface';
