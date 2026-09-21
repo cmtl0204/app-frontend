@@ -1,9 +1,11 @@
+name: yec-frontend
+
 services:
     app-frontend:
         build:
             context: ..
             dockerfile: devops/Dockerfile
-        container_name: app-frontend
+        container_name: yec-frontend
         restart: unless-stopped
         networks:
             - npm_network
