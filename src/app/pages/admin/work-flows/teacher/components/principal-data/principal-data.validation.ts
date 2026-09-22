@@ -1,5 +1,6 @@
-import { required, SchemaPathTree } from '@angular/forms/signals';
+import { required, SchemaPathTree,min,max } from '@angular/forms/signals';
 import { TeacherDistributionData } from '../../teacher-distribution.state';
+
 
 export function customFormValidation(schema: SchemaPathTree<TeacherDistributionData>): void {
 
@@ -9,7 +10,7 @@ export function customFormValidation(schema: SchemaPathTree<TeacherDistributionD
 
     required(schema.grade2, {
         message: 'La calificación del Parcial 2 es requerida'
-    });
+    });  
 
     required(schema.attendance, {
         message: 'La asistencia es requerida'

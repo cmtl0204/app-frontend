@@ -27,6 +27,7 @@
                 [maxFractionDigits]="2"
                 [min]="0"
                 [max]="10"
+                (onInput)="onGradeInput($event, 'grade1')"
                 placeholder="0.00"
                 styleClass="w-full"
                 inputStyleClass="w-full text-center font-bold">
@@ -51,6 +52,7 @@
                 [maxFractionDigits]="2"
                 [min]="0"
                 [max]="10"
+                (onInput)="onGradeInput($event, 'grade2')"
                 placeholder="0.00"
                 styleClass="w-full"
                 inputStyleClass="w-full text-center font-bold">
@@ -74,6 +76,7 @@
                 suffix="%"
                 [min]="0"
                 [max]="100"
+                (onInput)="onAttendanceInput($event)"
                 placeholder="0%"
                 styleClass="w-full"
                 inputStyleClass="w-full text-center font-bold">

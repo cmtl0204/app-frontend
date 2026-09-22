@@ -37,9 +37,7 @@
                 <!-- Encabezado de la Tarjeta -->
                 <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #f3f4f6; padding-bottom: 0.75rem; margin-bottom: 1rem;">
                     <div>
-                        <span style="font-size: 0.75rem; font-weight: 700; color: #2563eb; text-transform: uppercase; letter-spacing: 0.05em; display: block; margin-bottom: 0.25rem;">
-                            Semestre: {{ teacherDistribution.subject.academicPeriod?.name ?? 'N/A' }}
-                        </span>
+                        
                         <h3 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: #1f2937;">
                             {{ teacherDistribution.subject.name }}
                         </h3>
@@ -51,15 +49,7 @@
 
                 <!-- Cuerpo / Detalles -->
                 <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.25rem;">
-                    <div style="display: flex; align-items: flex-start; gap: 0.6rem; color: #4b5563; font-size: 0.875rem;">
-                        <i [class]="CustomIcons.GRADUATION_CAP_SOLID" style="color: #2563eb; margin-top: 0.15rem;"></i>
-                        <div>
-                            <span style="font-size: 0.75rem; color: #9ca3af; display: block; font-weight: 600;">Carrera</span>
-                            <span style="color: #1f2937; font-weight: 500;">
-                                {{ teacherDistribution.subject.curriculum?.career?.name ?? 'Sin Carrera' }}
-                            </span>
-                        </div>
-                    </div>
+                    
 
                     <div style="display: flex; align-items: flex-start; gap: 0.6rem; color: #4b5563; font-size: 0.875rem;">
                         <i [class]="CustomIcons.CALENDAR_WEEK_SOLID" style="color: #2563eb; margin-top: 0.15rem;"></i>
